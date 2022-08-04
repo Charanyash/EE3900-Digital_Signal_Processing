@@ -1,10 +1,10 @@
 main.pdf
 main.tex
 fourierchart.png
-Assignment 1/main.aux
-Assignment 1/main.fdb_latexmk
-Assignment 1/main.fls
-Assignment 1/main.log
-Assignment 1/main.out
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
 Assignment 1/main.synctex.gz
-Assignment 1/main.toc
+*.toc
