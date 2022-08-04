@@ -271,7 +271,7 @@ are audible along with background noise.
 Write the python code for removal of out of band noise and execute the code.
 \\
 \solution
-\lstinputlisting{cancel_noise.py}
+\lstinputlisting{Codes/cancel_noise.py}
 %\begin{figure}[h]
 %\centering
 %\includegraphics[width=\columnwidth]{enc_block_diag.png}
@@ -306,7 +306,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
 \end{lstlisting}
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=\columnwidth]{xnyn.png}
+\includegraphics[width=\columnwidth]{Figs/xnyn.png}
 \end{center}
 \captionof{figure}{}
 \label{fig:xnyn}	
@@ -458,7 +458,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
       \end{lstlisting}
       \begin{figure}[ht!]
         \centering
-        \includegraphics[width = \columnwidth]{dtft.png}
+        \includegraphics[width = \columnwidth]{Figs/dtft.png}
         \caption{$\abs{H\brak{e^{\j\omega}}}$}
         \label{DTFT}
       \end{figure} 
@@ -488,7 +488,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
      \end{lstlisting}
      \begin{figure}[ht!]
       \centering
-      \includegraphics[width = \columnwidth]{hn.png}
+      \includegraphics[width = \columnwidth]{Figs/hn.png}
       \caption{$h\brak{n}$ as inverse of $H\brak{n}$}     
       \label{hn}
      \end{figure}
@@ -518,7 +518,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
      Note that this is same as $\ref{hn}$.
      \begin{figure}[ht!]
       \centering
-      \includegraphics[width = \columnwidth]{hndef.png}
+      \includegraphics[width = \columnwidth]{Figs/hndef.png}
       \caption{From the definition of $h(n)$}
       \label{hndef}
      \end{figure}
@@ -539,7 +539,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
       Note that the plot is same that as in $\ref{fig:xnyn}$.
       \begin{figure}[ht!]
         \centering
-        \includegraphics[width = \columnwidth]{ynconv.png}
+        \includegraphics[width = \columnwidth]{Figs/ynconv.png}
         \caption{$y(n)$ using the convolution definition}
         \label{ynconv}
       \end{figure}
@@ -547,7 +547,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
      \begin{equation}
       y(n) =  \sum_{k=-\infty}^{\infty}x(n-k)h(k)
       \end{equation}
-    \solution Substitute $k := n-k$ in $\eqref{eq:convolution}$, we get 
+    \solution Substitute $k := n-k$ in $\eqref{eq:convolution}$, we will get 
      \begin{align}
        y(n) &= \sum_{k=-\infty}^{\infty}x(k)h(n-k)\\
             &= \sum_{n - k=-\infty}^{\infty}x(n-k)h(k)\\
