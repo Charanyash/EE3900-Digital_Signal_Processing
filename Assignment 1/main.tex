@@ -462,6 +462,8 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \caption{$\abs{H\brak{e^{\j\omega}}}$}
         \label{DTFT}
       \end{figure} 
+      The graph is symmetric about origin and has a period of 6.25.
+     
     \end{enumerate}
 \section{Impulse Response}
   \begin{enumerate}[label=\thesection.\arabic*]
@@ -492,7 +494,15 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
       \caption{$h\brak{n}$ as inverse of $H\brak{n}$}     
       \label{hn}
      \end{figure}
-    From the plot $\ref{hn}$, we can say that $h\brak{n}$ is bounded and converges to $0$ as $n$ increases.
+    From the plot $\ref{hn}$, we can say that $h\brak{n}$ is bounded and converges to $0$ as $n$ increases.And theoritically we can the same using $\eqref{eq:hn}$,
+     \begin{align}
+       h\brak{n} &= \begin{cases}
+                        0 &, n \leq 0\\
+                        \brak{\frac{-1}{2}}^n &, 0<n<2\\
+                        5\brak{\frac{1}{2}}^n &, n \geq 2
+                     \end{cases}
+     \end{align}
+     As $5\brak{\frac{1}{2}}^n \rightarrow 0$ as $n \rightarrow \infty$ we can say $h\brak{n}$ is bounded and Convergent.
     \item The system with $h(n)$ is defined to be stable if
      \begin{equation}
       \sum_{n=-\infty}^{\infty}h(n) < \infty
