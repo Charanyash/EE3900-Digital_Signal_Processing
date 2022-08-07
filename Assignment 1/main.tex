@@ -311,8 +311,31 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
 \captionof{figure}{}
 \label{fig:xnyn}	
 \end{figure}
-\item Repeat the above exercise using a C code.
- \solution 
+\item Repeat the above exercise using a C code.\\
+ \solution Download the C code from the below link,
+   \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Assignment%201/Codes/xnyn.c
+   \end{lstlisting}
+   Then run the follwing command in terminal
+    \begin{lstlisting}
+cc xnyn.c
+./a.out
+    \end{lstlisting}
+    Then for the plot $\ref{xnyn2}$ download the python file from the below link,
+    \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Assignment%201/Codes/xnyn2.py
+    \end{lstlisting}
+    Then run the command
+    \begin{lstlisting}
+python3 xnyn2.py
+    \end{lstlisting}
+    \begin{figure}[ht!]
+      \centering
+      \includegraphics[width= \columnwidth]{Figs/xnyn2.png}
+      \caption{Plot using C code}
+      \label{xnyn2}
+    \end{figure}
+
 \end{enumerate}
 \section{$Z$-transform}
 \begin{enumerate}[label=\thesection.\arabic*]
@@ -463,7 +486,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \caption{$\abs{H\brak{e^{\j\omega}}}$}
         \label{DTFT}
       \end{figure} 
-      The graph is symmetric about origin and has a period of 6.25.
+      The graph is symmetric about origin and has a period of $2\pi$.
      
     \end{enumerate}
 \section{Impulse Response}
