@@ -288,7 +288,7 @@ The output of the python script in Problem \ref{prob:output} is the audio file  
 \begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
 \item Let
 \begin{equation}
-x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}
+x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}\label{xn}
 \end{equation}
 Sketch $x(n)$.\\
 \solution The plot of $x\brak{n}$ is given in $\ref{3.2}$
@@ -339,7 +339,7 @@ python3 xnyn2.py
 \end{enumerate}
 \section{$Z$-transform}
 \begin{enumerate}[label=\thesection.\arabic*]
-\item The $Z$-transform of $x(n)$ is defined as
+\item The $Z$-transform of $x(n)$ is defined as 
 %
 \begin{equation}
 \label{eq:z_trans}
@@ -376,6 +376,12 @@ and find
           \mathcal{Z}\cbrak{x\brak{n-k}} &= z^{-k}X\brak{n}\label{shift_k_Z_transform}
      \end{align} 
    Hence proved.
+   Now we will find $Z$ transform of the signal $x\brak{n}$,from $\eqref{xn}$,
+    \begin{align}
+      \mathcal{Z}\cbrak{x\brak{n}} &= \sum_{n=0}^{5}x\brak{n}z^{-n}\\
+                                   &= 1z^{0} + 2z^{-1} + 3z^{-2}+4z^{-3} + 2z^{-4} +1z^{-5}\\
+                                   &= 1 + 2z^{-1} + 3z^{-2} + 4z^{-3} + 2z^{-4} + z^{-5} 
+    \end{align}
    \item Find
    %
    \begin{equation}
@@ -486,7 +492,18 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \caption{$\abs{H\brak{e^{\j\omega}}}$}
         \label{DTFT}
       \end{figure} 
-      The graph is symmetric about origin and has a period of $2\pi$.
+    Now using $\eqref{eq:freq_resp}$, we will find $\abs{H\brak{e^{j \omega}}}$,
+     \begin{align}
+      H\brak{e^{j \omega}} &= \frac{1+e^{-2j\omega}}{1 + \frac{e^{-j\omega}}{2}}\\
+        \implies \abs{H\brak{e^{j \omega}}} &= \frac{\abs{1+e^{-2j\omega}}}{\abs{1 + \frac{e^{-j\omega}}{2}}}\\
+                            &= \frac{\abs{1+e^{2j\omega}}}{\abs{e^{2j\omega} + \frac{e^{j\omega}}{2}}}\\
+                            &= \frac{\abs{1+\cos2\omega + j\sin2\omega}}{\abs{e^{j\omega}+ \frac{1}{2}}}\\
+                            &= \frac{\abs{4\cos^2\brak{\omega} + 4j\sin\brak{\omega}\cos\brak{\omega}}}{\abs{2e^{j\omega} + 1}}\\
+                            &= \frac{\abs{4\cos\brak{\omega}}\abs{\cos\brak{\omega} + j\sin\brak{\omega}}}{\abs{2\cos\brak{\omega} + 1 + 2j\sin\brak{\omega}}}\\
+        \therefore \abs{H\brak{e^{j \omega}}} &= \frac{\abs{4\cos\brak{\omega}}}{\sqrt{5 +4\cos\brak{\omega}}}
+     \end{align}
+
+      Using the above expression we can say that graph is symmetric about origin and has a period of $2\pi$.
      
     \end{enumerate}
 \section{Impulse Response}

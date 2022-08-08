@@ -11,4 +11,4 @@ def Conv(x,h):
   h_new = np.zeros([nx+nh-1,nx])
   for i in range(nx+nh-1):
     for j in range(nx):
-        h_new[i][j] = 
+        h_new[i][j] = h[i]
