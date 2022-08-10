@@ -505,9 +505,16 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
                             &= \frac{\abs{4\cos\brak{\omega}}\abs{\cos\brak{\omega} + j\sin\brak{\omega}}}{\abs{2\cos\brak{\omega} + 1 + 2j\sin\brak{\omega}}}\\
         \therefore \abs{H\brak{e^{j \omega}}} &= \frac{\abs{4\cos\brak{\omega}}}{\sqrt{5 +4\cos\brak{\omega}}}
      \end{align}
-
-      Using the above expression we can say that graph is symmetric about origin and has a period of $2\pi$.
-    \item Express $x(n)$ in terms of $H\brak{e^{j \omega}}$.
+Since $\abs{H(e^{j\omega})}$ is function of cosine we can say it is periodic.And from the plot $\ref{DTFT}$ we can say that it is symmetric about $\omega = 0\brak{\text{even function}}$ and it is periodic with period $2\pi$.You can find the same from the theoritical expression $\abs{H\brak{e^{j \omega}}}$, 
+       \begin{align}
+         H(e^{j\omega}) &= H(e^{j(-\omega)})\brak{\text{cos is an even function}}
+       \end{align}
+    And to find period, the period of $\abs{\cos(\omega)}$ is $\pi$ and the period of $\sqrt{5 + 4\cos\brak{\omega}}$ is $2\pi$. So the period of division of both will be,
+     \begin{align}
+      lcm\brak{\pi,2\pi} &= 2\pi
+     \end{align}
+     This gives us the period of $\abs{H(e^{j\omega})}$ as $2\pi$
+  \item Express $x(n)$ in terms of $H\brak{e^{j \omega}}$.\\
      \solution 
     \end{enumerate}
 \section{Impulse Response}
