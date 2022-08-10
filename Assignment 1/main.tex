@@ -286,7 +286,7 @@ The output of the python script in Problem \ref{prob:output} is the audio file  
 \end{enumerate}
 \section{Difference Equation}
 \begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
-\item Let
+\item Let \label{def:xn}
 \begin{equation}
 x(n) = \cbrak{\underset{\uparrow}{1},2,3,4,2,1}\label{xn}
 \end{equation}
@@ -376,7 +376,10 @@ and find
           \mathcal{Z}\cbrak{x\brak{n-k}} &= z^{-k}X\brak{n}\label{shift_k_Z_transform}
      \end{align} 
    Hence proved.
-   Now we will find $Z$ transform of the signal $x\brak{n}$,from $\eqref{xn}$,
+    \item Obtain $X(z)$ for $x(n)$ defined in problem 
+    \ref{def:xn}.
+    \solution 
+    Now we will find $Z$ transform of the signal $x\brak{n}$,from $\eqref{xn}$,
     \begin{align}
       \mathcal{Z}\cbrak{x\brak{n}} &= \sum_{n=0}^{5}x\brak{n}z^{-n}\\
                                    &= 1z^{0} + 2z^{-1} + 3z^{-2}+4z^{-3} + 2z^{-4} +1z^{-5}\\
@@ -504,7 +507,8 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
      \end{align}
 
       Using the above expression we can say that graph is symmetric about origin and has a period of $2\pi$.
-     
+    \item Express $x(n)$ in terms of $H\brak{e^{j \omega}}$.
+     \solution 
     \end{enumerate}
 \section{Impulse Response}
   \begin{enumerate}[label=\thesection.\arabic*]
