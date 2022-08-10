@@ -483,7 +483,7 @@ and find
       \begin{equation}
         H\brak{e^{j \omega}} = H\brak{z = e^{j \omega}}.
       \end{equation}
-      Plot $\abs{H\brak{e^{j \omega}}}$.  Comment.  $H(e^{j \omega})$ is known as the {\em Discret Time Fourier Transform} (DTFT) of $x(n)$.\\
+      Plot $\abs{H\brak{e^{j \omega}}}$.  Comment.  $H(e^{j \omega})$ is known as the {\em Discret Time Fourier Transform} (DTFT) of $h(n)$.\\
     \solution
         Download the code for the plot $\ref{DTFT}$ from the link below
       \begin{lstlisting}
@@ -514,8 +514,12 @@ Since $\abs{H(e^{j\omega})}$ is function of cosine we can say it is periodic.And
       lcm\brak{\pi,2\pi} &= 2\pi
      \end{align}
      This gives us the period of $\abs{H(e^{j\omega})}$ as $2\pi$
-  \item Express $x(n)$ in terms of $H\brak{e^{j \omega}}$.\\
-     \solution 
+  \item Express $h(n)$ in terms of $H\brak{e^{j \omega}}$.\\
+     \solution $h\brak{n}$ will be the inverse-time fourier transform $(ITFT)$,
+      \begin{align}
+        h\brak{n} &= \frac{1}{2\pi}\int_{-\pi}^{\pi}H\brak{e^{j\omega}}e^{j\omega n}d\omega
+      \end{align} 
+
     \end{enumerate}
 \section{Impulse Response}
   \begin{enumerate}[label=\thesection.\arabic*]
