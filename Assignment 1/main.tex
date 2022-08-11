@@ -532,7 +532,7 @@ find
 			h(n), \quad n < 5
 		\end{align}
 		for H(z) in 
-		\eqref{eq:freq_resp}.
+		\eqref{eq:freq_resp}.\\
     \solution From $\eqref{eq:freq_resp}$, we can write
 	  \begin{align}
 		H\brak{z} &= \frac{1 + z^{-2}}{1 + \frac{z^{-1}}{2}}
@@ -549,9 +549,9 @@ find
 $$
 So we can replace $\eqref{eq:freq_resp}$ as, 
    \begin{align}
-     \frac{1+z^{-2}}{1 + \frac{z^{-1}}{2}} &= 2z^{-1} - 4 + \frac{5}{1 + z^{-1}/2}\\label{eq:longdiv}
+     \frac{1+z^{-2}}{1 + \frac{z^{-1}}{2}} &= 2z^{-1} - 4 + \frac{5}{1 + z^{-1}/2}\label{eq:longdiv}
    \end{align}
-   Now we can expand the second term of above expression with an infinite geometric series,
+   Now we can expand the second term of above expression as an infinite geometric series,
    \begin{align}
      \frac{5}{1+z^{-1}/2} &= 5\brak{1 + \brak{\frac{-1}{2z}} + \brak{\frac{-1}{2z}}^2 + .\,.\,.} \end{align}
      where we assume $\abs{\frac{1}{2z}} < 1$.
@@ -564,7 +564,8 @@ So we can replace $\eqref{eq:freq_resp}$ as,
     \begin{align}
       H\brak{z} &= \sum_{n = -\infty}^{n = \infty}h(n)z^{-n}
     \end{align}
-    $h(n)$ will be the coefficient of $z^{-n}$ using this, from $\eqref{eq:longdiv_exp}$ we can write,
+    $h(n)$ will be the coefficient of $z^{-n}$.\\
+     Using this, from $\eqref{eq:longdiv_exp}$ we can write,
      \begin{align}
       h(0) &= 1\\
       h(1) &= \frac{-1}{2}\\
@@ -572,7 +573,7 @@ So we can replace $\eqref{eq:freq_resp}$ as,
       h(3) &= \frac{-5}{8}\\
       h(4) &= \frac{5}{16}
      \end{align}
-     And for $n<0 h(n) = 0$,
+     And for $n<0\,\, h(n) = 0$.
     \item \label{prob:impulse_resp}
       Find an expression for $h(n)$ using $H(z)$, given that 
            %in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
@@ -600,17 +601,57 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
       \caption{$h\brak{n}$ as inverse of $H\brak{n}$}     
       \label{hn}
      \end{figure}
-    From the plot $\ref{hn}$, we can say that $h\brak{n}$ is bounded and converges to $0$ as $n$ increases.And theoritically we can the same using $\eqref{eq:hn}$,
+     From the plot it seems like $h(n)$ is bounded and becomes smaller in magnitude as $n$ increases.\\
+    Using $\eqref{eq:hn}$, we can get theoritical expression as, 
      \begin{align}
        h\brak{n} &= \begin{cases}
-                        0 &, n \leq 0\\
-                        \brak{\frac{-1}{2}}^n &, 0<n<2\\
-                        5\brak{\frac{1}{2}}^n &, n \geq 2
+                        0 &, n < 0\\
+                        \brak{\frac{-1}{2}}^n &, 0\leq n<2\\
+                        5\brak{\frac{-1}{2}}^n &, n \geq 2
                      \end{cases}
      \end{align}
-     As $5\brak{\frac{1}{2}}^n \rightarrow 0$ as $n \rightarrow \infty$ we can say $h\brak{n}$ is bounded and Convergent.
-     \item Convergent? Justify using the ratio test. 
-     \item The system with $h(n)$ is defined to be stable if
+    A sequence $\cbrak{x_n}$ is said to be bounded if and only if there exist a positive real number $M$ such that,
+         \begin{align}
+           \abs{x_n} \leq M , \forall n \in \mathcal{N}\label{def:bounded}
+         \end{align}      
+    So to say $h\brak{n}$ is bounded we should able to find the $M$ which satisfies $\eqref{def:bounded}$.\\
+    For n < 0, 
+       \begin{align}
+    \abs{h\brak{n}} \leq 0 
+       \end{align}
+    For $0 \leq n <2$,
+       \begin{align}
+        \abs{h\brak{n}} &= \abs{\frac{-1}{2}}^{n}\\
+                        &= \brak{\frac{1}{2}}^{n} \leq 1
+       \end{align}
+    And for $n \geq 2$,
+       \begin{align}
+        \abs{h\brak{n}} &= \abs{5\brak{\frac{-1}{2}}}^{n}\\
+                        &= \brak{\frac{5}{2}}^{n} \leq \frac{5}{4}
+       \end{align}
+    From above three cases, we can get $M$ as,
+      \begin{align}
+        M &= max\cbrak{0,1,\frac{5}{4}} \\
+          &= \frac{5}{4}
+      \end{align}
+    Therefore, $h\brak{n}$ is bounded using $\eqref{def:bounded}$ with $M = \frac{5}{4}$ i.e.,
+    \begin{align} 
+      \abs{h(n)} \leq \frac{5}{4}  \forall n in \mathcal{N}
+    \end{align}    
+     \item Convergent? Justify using the ratio test.\\
+     \solution We can say a given real sequence $\cbrak{x_n}$ is convergent if 
+       \begin{align}
+         \lim_{n \rightarrow \infty}\abs{\frac{x_{n+1}}{x_n}} < 1
+       \end{align}
+        This is known as Ratio test.\\
+      In this case the limit will become,
+       \begin{align}
+         \lim_{n \rightarrow \infty}\abs{\frac{h\brak{n+1}}{h\brak{n}}} &= \lim_{n \rightarrow \infty}\abs{\frac{5\brak{\frac{-1}{2}}^{n+1}}{5\brak{\frac{-1}{2}}^{n}}} \\
+          &= \lim_{n \rightarrow \infty}\abs{\frac{-1}{2}}\\
+          &= \frac{1}{2}
+       \end{align}
+      As $\frac{1}{2} < 1$, from root test we can say that $h\brak{n}$ is convergent.
+       \item The system with $h(n)$ is defined to be stable if
      \begin{equation}
       \sum_{n=-\infty}^{\infty}h(n) < \infty
      \end{equation}
@@ -622,7 +663,6 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
                                            &= \frac{4}{3}
       \end{align}
        $\therefore$ the system is stable.   
-    
     \item Compute and sketch $h(n)$ using 
      \begin{equation}
       \label{eq:iir_filter_h}
@@ -662,6 +702,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \label{ynconv}
       \end{figure}
     \item Express the above convolution using a Toeplitz matrix.
+    \solution 
     \item Show that
      \begin{equation}
       y(n) =  \sum_{k=-\infty}^{\infty}x(n-k)h(k)
