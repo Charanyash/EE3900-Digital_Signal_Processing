@@ -7,7 +7,7 @@
 %\usepackage{subcaption}
 %\doublespacing
 \singlespacing
-
+\usepackage{polynom}
 %\usepackage{graphicx}
 %\usepackage{amssymb}
 %\usepackage{relsize}
@@ -105,6 +105,9 @@ columns=fullflexible
 \providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
 \providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
 \theoremstyle{remark}
+\newcommand\Mydiv[2]{%
+$\strut#1$\kern.25em\smash{\raise.3ex\hbox{$\big)$}}$\mkern-8mu
+        \overline{\enspace\strut#2}$}
 \newtheorem{rem}{Remark}
 \newcommand{\sgn}{\mathop{\mathrm{sgn}}}
 \providecommand{\abs}[1]{\left\vert#1\right\vert}
@@ -523,6 +526,53 @@ Since $\abs{H(e^{j\omega})}$ is function of cosine we can say it is periodic.And
     \end{enumerate}
 \section{Impulse Response}
   \begin{enumerate}[label=\thesection.\arabic*]
+    \item Using long division, 
+find
+		\begin{align}
+			h(n), \quad n < 5
+		\end{align}
+		for H(z) in 
+		\eqref{eq:freq_resp}.
+    \solution From $\eqref{eq:freq_resp}$, we can write
+	  \begin{align}
+		H\brak{z} &= \frac{1 + z^{-2}}{1 + \frac{z^{-1}}{2}}
+	  \end{align}
+    $$
+\begin{array}{llllll}
+& 2z^{-1} & -4 \\\cline{2-5}
+1 + z^{-1}/2 | & 1& +z^{-2}  \\
+& 2z^{-1} & +z^{-2}  \\\cline{2-5}
+& & 1 & -2z^{-1} \\
+& & -4 & -2z^{-1} & \\\cline{3-5}
+& & & -5 \\
+\end{array}
+$$
+So we can replace $\eqref{eq:freq_resp}$ as, 
+   \begin{align}
+     \frac{1+z^{-2}}{1 + \frac{z^{-1}}{2}} &= 2z^{-1} - 4 + \frac{5}{1 + z^{-1}/2}\\label{eq:longdiv}
+   \end{align}
+   Now we can expand the second term of above expression with an infinite geometric series,
+   \begin{align}
+     \frac{5}{1+z^{-1}/2} &= 5\brak{1 + \brak{\frac{-1}{2z}} + \brak{\frac{-1}{2z}}^2 + .\,.\,.} \end{align}
+     where we assume $\abs{\frac{1}{2z}} < 1$.
+    So $\eqref{eq:longdiv}$ will become,
+    \begin{align}
+      &= 2z^{-1} - 4 + 5 + \frac{-5}{2}z^{-1} + \frac{5}{4}z^{-2} + \frac{-5}{8}z^{-3} + \frac{5}{16}z^{-4} + \,.\,.\\
+      &= 1z^{0} + \frac{-1}{2}z^{-1} +\frac{5}{4}z^{-2} + \frac{-5}{8}z^{-3} +\frac{5}{16}z^{-4} + \,.\,.  \label{eq:longdiv_exp}
+    \end{align}
+   Now to get $h(n)$ for $n <5$ we will compare $\eqref{eq:longdiv_exp}$ with the below equation,
+    \begin{align}
+      H\brak{z} &= \sum_{n = -\infty}^{n = \infty}h(n)z^{-n}
+    \end{align}
+    $h(n)$ will be the coefficient of $z^{-n}$ using this, from $\eqref{eq:longdiv_exp}$ we can write,
+     \begin{align}
+      h(0) &= 1\\
+      h(1) &= \frac{-1}{2}\\
+      h(2) &= \frac{5}{4}\\
+      h(3) &= \frac{-5}{8}\\
+      h(4) &= \frac{5}{16}
+     \end{align}
+     And for $n<0 h(n) = 0$,
     \item \label{prob:impulse_resp}
       Find an expression for $h(n)$ using $H(z)$, given that 
            %in Problem \ref{eq:ztransab} and \eqref{eq:anun}, given that
@@ -539,7 +589,7 @@ Since $\abs{H(e^{j\omega})}$ is function of cosine we can say it is periodic.And
       \begin{align}
         h\brak{n} &= \brak{\frac{-1}{2}}^{n} u\brak{n} + \brak{\frac{-1}{2}}^{n-2} u\brak{n-2}\label{eq:hn}
       \end{align}
-    \item Sketch $h(n)$. Is it bounded? Convergent?\\
+    \item Sketch $h(n)$. Is it bounded? Justify Theoritically.\\
     \solution  Download the code for the plot $\ref{hn}$ from the below link,
      \begin{lstlisting}
 wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/Assignment-1/Codes/hn.py
@@ -559,7 +609,8 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
                      \end{cases}
      \end{align}
      As $5\brak{\frac{1}{2}}^n \rightarrow 0$ as $n \rightarrow \infty$ we can say $h\brak{n}$ is bounded and Convergent.
-    \item The system with $h(n)$ is defined to be stable if
+     \item Convergent? Justify using the ratio test. 
+     \item The system with $h(n)$ is defined to be stable if
      \begin{equation}
       \sum_{n=-\infty}^{\infty}h(n) < \infty
      \end{equation}
@@ -570,7 +621,8 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
                                            &= 2\brak{\frac{1}{1+\frac{1}{2}}}\\
                                            &= \frac{4}{3}
       \end{align}
-       $\therefore$ the system is stable.     
+       $\therefore$ the system is stable.   
+    
     \item Compute and sketch $h(n)$ using 
      \begin{equation}
       \label{eq:iir_filter_h}
@@ -609,6 +661,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \caption{$y(n)$ using the convolution definition}
         \label{ynconv}
       \end{figure}
+    \item Express the above convolution using a Toeplitz matrix.
     \item Show that
      \begin{equation}
       y(n) =  \sum_{k=-\infty}^{\infty}x(n-k)h(k)
