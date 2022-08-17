@@ -397,14 +397,6 @@ and find
    %
    from  $\eqref{eq:iir_filter}$ assuming that the $Z$-transform is a linear operation.
    \\
-   \solution Applying \eqref{shift_k_Z_transform} in \eqref{eq:iir_filter},
-   \begin{align}
-   Y(z) + \frac{1}{2}z^{-1}Y(z) &= X(z)+z^{-2}X(z)
-   \\
-   \implies \frac{Y(z)}{X(z)} &= \frac{1 + z^{-2}}{1 + \frac{1}{2}z^{-1}}
-   \label{eq:freq_resp}
-   \end{align}
-   %
     \solution 
      Now we will rewrite $\eqref{eq:iir_filter}$,
       \begin{align}
@@ -711,7 +703,7 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
         \caption{$y(n)$ using the convolution definition}
         \label{ynconv}
       \end{figure}
-    \item Express the above convolution using a Toeplitz matrix.
+    \item Express the above convolution using a Toeplitz matrix.\\
     \solution Download the python code from the below link for the plot $\ref{ynconv_toep}$,
      \begin{lstlisting}
 wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Assignment%201/Codes/ynconv_toeplitz.py
