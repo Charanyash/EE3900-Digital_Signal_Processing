@@ -409,7 +409,7 @@ and find
       From $\eqref{shift_k_Z_transform}$,
       \begin{align}
           Y\brak{n} + \frac{z^{-1}}{2}Y\brak{n} &= X\brak{n} + z^{-2}X\brak{n}\\
-       \implies \frac{Y\brak{n}}{X\brak{n}} &= \frac{1 + z^{-2}}{1 + \frac{z^{-1}}{2}} 
+       \implies \frac{Y\brak{n}}{X\brak{n}} &= \frac{1 + z^{-2}}{1 + \frac{z^{-1}}{2}} \label{eq:freq_resp}
       \end{align}       
       \item Find the Z transform of 
       \begin{equation}
@@ -525,7 +525,7 @@ find
 			h(n), \quad n < 5
 		\end{align}
 		for H(z) in 
-		\eqref{eq:freq_resp}.\\
+		$\eqref{eq:freq_resp}$.\\
     \solution From $\eqref{eq:freq_resp}$, we can write
 	  \begin{align}
 		H\brak{z} &= \frac{1 + z^{-2}}{1 + \frac{z^{-1}}{2}}
@@ -675,14 +675,46 @@ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/As
      \begin{lstlisting}
 wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/main/Assignment-1/Codes/hndef.py
      \end{lstlisting}
-     Note that this is same as $\ref{hn}$.
+     Note that this is same as $\ref{hn}$.\\
      \begin{figure}[ht!]
       \centering
       \includegraphics[width = \columnwidth]{Figs/hndef.png}
       \caption{From the definition of $h(n)$}
       \label{hndef}
      \end{figure}
-    \item Compute 
+    For $n <0$, $h\brak{n} = 0$ and,
+     \begin{align} 
+       h\brak{0} &= \delta\brak{0}\\
+                 &= 1
+     \end{align}
+    For $n =1$,
+     \begin{align} 
+       h\brak{1} + \frac{1}{2}h\brak{0} &= \delta\brak{1} + \delta\brak{-1}\\
+      \implies  h\brak{1}&= -\frac{1}{2}h\brak{0}\\
+                         &= -\frac{1}{2}
+     \end{align}
+    $n=2$,
+      \begin{align}
+        h\brak{2} + \frac{1}{2}h\brak{1} &= 0 + \delta\brak{0}\\
+              h\brak{2} &= 1 + \frac{1}{4}\\
+                        &= \frac{5}{4}
+      \end{align}
+    And for $n>2$ RHS will be $0$ so,
+      \begin{align}
+        h\brak{n} &= -\frac{1}{2}h\brak{n-1}
+      \end{align}
+    Overall 
+      \begin{align}
+         h\brak{n} &= \begin{cases}
+                          0  &, n <0 \\
+                          1  &, n = 0 \\
+                        -\frac{1}{2} &, n=1 \\
+                        \frac{5}{4} &, n =2\\
+                        -\frac{1}{2}h\brak{n-1} &, n >2
+         \end{cases}
+         \end{align}
+
+        \item Compute 
      %
      \begin{equation}
      \label{eq:convolution}
