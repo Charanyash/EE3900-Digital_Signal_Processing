@@ -1,5 +1,5 @@
 # EE3900-Digital_Signal_Processing
-This repo consists of solutions of assignments of course EE3900 **Digital Signal Processing** taught by [Dr.G.V.V Sharma](https://github.com/gadepall) in == IIT == Hyderabad.  
+This repo consists of solutions of assignments of course EE3900 **Digital Signal Processing** taught by [Dr.G.V.V Sharma](https://github.com/gadepall) in ==Indian Institute Of Technology Hyderabad==.  
 Name : Mannem Charan  
 Roll No : AI21BTECH11019  
   
