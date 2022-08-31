@@ -830,7 +830,7 @@ Compute
 \begin{equation}
 X(k) \define \sum _{n=0}^{N-1}x(n) e^{-\j2\pi kn/N}, \quad k = 0,1,\dots, N-1
 \end{equation}
-and $H(k)$ using $h(n)$.
+and $H(k)$ using $h(n)$.\\
 \solution Download the below python code for the plot $\ref{DFT}$,
 \begin{lstlisting}
 wget  https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/dft.py
@@ -843,31 +843,46 @@ python3 dft.py
 \begin{figure}[!h]
   \includegraphics[width = \columnwidth]{Figs/dft.png}
   \centering
-  \caption(Plot of real part of Discrete Fourier Transforms of $x(n)$ and $h(n)$)
-  \label(DFT)
+  \caption{Plot of real part of Discrete Fourier Transforms of $x(n)$ and $h(n)$}
+  \label{DFT}
 \end{figure}
   \item Compute 
 \begin{equation}
 Y(k) = X(k)H(k)
 \end{equation}
+ \solution Download the below python code for the plot $\ref{Y_k}$,
+  \begin{lstlisting}
+wget  https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/Y_K.py
+  \end{lstlisting}
+Then run the following command in the terminal,
+ \begin{lstlisting}
+python3 Y_K.py
+ \end{lstlisting}
+ \begin{figure}[!h]
+  \centering
+  \includegraphics[width=\columnwidth]{Figs/Y_k.png}
+  \caption{$Y(k)$ as the product of $X(k)$ and $H(k)$}
+  \label{Y_k} 
+ \end{figure}
 \item Compute
 \begin{equation}
  y\brak{n}={\frac {1}{N}}\sum _{k=0}^{N-1}Y\brak{k}\cdot e^{\j 2\pi kn/N},\quad n = 0,1,\dots, N-1
 \end{equation}
-\\
-\solution The following code plots Fig. \ref{fig:ynconv}. Note that this is the same as 
-$y(n)$ in  Fig. 
-\ref{fig:xnyn}. 
-%
+\solution Download the below python code for the plot $\ref{yndft_dif}$,
 \begin{lstlisting}
-wget https://raw.githubusercontent.com/gadepall/EE1310/master/filter/codes/yndft.py
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/yndft_dif.py
 \end{lstlisting}
-% \begin{figure}[!ht]
-% \centering
-% \includegraphics[width=\columnwidth]{./figs/yndft}
-% \caption{$y(n)$ from the DFT}
-% \label{fig:yndft}
-% \end{figure}
+Then run the following command,
+ \begin{lstlisting}
+python3 yndft_dif.py
+ \end{lstlisting}
+
+ \begin{figure}[!h]
+  \centering
+  \includegraphics[width=\columnwidth]{Figs/yndft_dif.png}
+  \caption{$y(n)$ using IDFT and difference equation}
+  \label{yndft_dif}
+ \end{figure}
 
 \item Repeat the previous exercise by computing $X(k), H(k)$ and $y(n)$ through FFT and 
 IFFT.

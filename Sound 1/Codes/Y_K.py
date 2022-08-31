@@ -30,25 +30,16 @@ def H(k,N):
     for i in range(N):
         sum += h(i)*(np.exp(-1j*2*np.pi*i*k/N))
     return sum
+def Y(k,N):
+    return H(k,N)*X(k,N)
 
-vec_X = scipy.vectorize(X)
-vec_H = scipy.vectorize(H)
-
+vec_Y =  scipy.vectorize(Y)
 k = np.arange(N)
-plt.subplot(211)
 
-plt.stem(k,np.real(vec_X(k,N)))
-
-plt.ylabel("$X(k)$")
-plt.grid()
-
-plt.subplot(212)
-
-plt.stem(k,np.real(vec_H(k,N)))
+plt.stem(k,vec_Y(k,N))
 plt.xlabel("k")
-plt.ylabel("$H(k)$")
+plt.ylabel("$Y(k)$")
 plt.grid()
+plt.savefig("Sound 1/Figs/Y_k.png")
 
-
-plt.savefig("Sound 1/Figs/dft.png")
 plt.show()
