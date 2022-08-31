@@ -37,5 +37,5 @@ plt.stem(range(0,k),y)
 plt.xlabel('$n$')
 plt.ylabel('$y(n)$')
 plt.grid()# minor
-plt.savefig("xnyn.png")
+plt.savefig("Sound 1/Figs/xnyn.png")
 plt.show()

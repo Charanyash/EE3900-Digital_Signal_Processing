@@ -17,6 +17,6 @@ plt.xlabel("n")
 plt.ylabel("$y(n)$")
 plt.grid()
 
-plt.savefig("Assignment 1/Figs/xnyn2.png")
+plt.savefig("Sound 1/Figs/xnyn2.png")
 plt.show()
 

@@ -19,7 +19,7 @@ plt.title("Filter Frequency Response")
 plt.grid()
 plt.xlabel("$\omega$")
 plt.ylabel("$|H(e^{\jmath\omega})| $")
-plt.savefig("Assignment 1/Figs/dtft.png")
+plt.savefig("Sound 1/Figs/dtft.png")
 plt.show()
 
 

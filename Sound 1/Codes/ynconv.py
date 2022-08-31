@@ -25,5 +25,5 @@ plt.title('Filter Output using Convolution')
 plt.xlabel('$n$')
 plt.ylabel('$y(n)$')
 plt.grid()# minor
-plt.savefig("Assignment 1/ynconv.png")
+plt.savefig("Sound 1/Figs/ynconv.png")
 plt.show()
