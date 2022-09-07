@@ -229,7 +229,11 @@ Digital Signal Processing
 \begin{abstract}
 This document provides the solution of Assignment 1.
 \end{abstract}
-\textbf{Question 3.6.e :} Determine the inverse z-transform using both the methods- partial fraction expansion and power series expansion.In addition, indicate whether the Fourier transform exists or not.
+\textbf{Question 3.6.e :} Determine 
+\begin{enumerate}
+	\item the inverse z-transform using both the methods- partial fraction expansion and power series expansion.In addition, indicate whether the Fourier transform exists or not. 
+	\item And then consider the result from inverse z-transform as the impulse response of the a system $\brak{h\brak{n}}$,check whether that sytem system is causal or not and stable or not.
+ \end{enumerate}
   \begin{align}
     X(z) &= \frac{1-az^{-1}}{z^{-1} - a} , \, \, \abs{z} > \abs{\frac{1}{a}}
   \end{align}
@@ -237,7 +241,8 @@ This document provides the solution of Assignment 1.
    \begin{align}
      X(z) &= \frac{1-az^{-1}}{z^{-1} - a} , \, \, \abs{z} > \abs{\frac{1}{a}}\label{eq:z-transform}
    \end{align}
-  Now to find inverse z-transform of eq $\eqref{eq:z-transform}$,we will use following two methods,
+   \begin{enumerate}
+    \item Now to find inverse z-transform of eq $\eqref{eq:z-transform}$,we will use following two methods,
    \begin{enumerate}
     \item Using partial fractions
     \item Using power series expansion
@@ -300,8 +305,28 @@ This document provides the solution of Assignment 1.
        \end{align}
       And for $x\brak{n}$, fourier transform exists when ROC contains the unit circle $\brak{\abs{z} = 1}$,this will happen when 
       \begin{align}
-         \abs{\frac{1}{a}} < 1
+         \abs{\frac{1}{a}} < 1 \\
          \implies \abs{a} > 1
       \end{align}
-      $\therefore$ For $\abs{a} > 1$ , given signal $x\brak{n}$ has Fourier transform.  
-      \end{document}
+      $\therefore$ For $\abs{a} > 1$ , given signal $x\brak{n}$ has Fourier transform.\\
+    \item Consider a system whose impulse response is given by,
+       \begin{align}
+         h(n) &=  -a\delta\brak{n} -\brak{1-a^2}a^{-\brak{n+1}}u\brak{n}
+       \end{align}
+       We can say that the system is stable when,
+        \begin{align}
+	       \sum_{n=-\infty}^{\infty}h(n) < \infty
+        \end{align}
+	It is possible when ROC contains the unit circle, 
+	 \begin{align}
+		\abs{\frac{1}{a}} < 1 \\
+                 \abs{a} > 1
+         \end{align}
+        $\therefore$ The system is stable if $\abs{a} > 1$.\\
+         To check whether the system is causal or not we need to check whether the ROC for $H\brak{z}$ is outside the outermost pole.Since the ROC here is,
+	  \begin{align}
+		  \abs{z} > \abs{\frac{1}{a}}
+          \end{align}
+	  It is clearly outside the outer most pole $\brak{\abs{z} = \frac{1}{a}}$. Hence the given system is causal.
+  \end{enumerate}      
+ \end{document}
