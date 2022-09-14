@@ -7,7 +7,7 @@ Roll No : AI21BTECH11019
  1. Sound Assignments
     1. Assignment 1
     - Given on 1 Aug,2022
-    - Solved 5/7 :blush:
+    - Solved 6/8 :blush:
  2. Oppenheim and Schafer Assignments
     1. Assignment 1
     - Given on 23 Aug,2022
