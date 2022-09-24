@@ -69,9 +69,8 @@ columns=fullflexible
 }
 
 
-
 \begin{document}
-%
+
 
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
@@ -119,6 +118,7 @@ $\strut#1$\kern.25em\smash{\raise.3ex\hbox{$\big)$}}$\mkern-8mu
 \providecommand{\ztrans}{\overset{\mathcal{Z}}{ \rightleftharpoons}}
 \newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
 \newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\let\vec\mathbf
 %\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
 \providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
 	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
@@ -913,7 +913,7 @@ python3 yn_ifft.py
 %\item Verify the above equations by generating the DFT matrix using python.
 %\item Write the C program to compute the 8-point FFT.
 \end{enumerate}
-%
+
 \section{FFT}
 % \subsection{Definitions}
 \begin{enumerate}[label=\arabic*.,ref=\thesection.\theenumi]
@@ -924,11 +924,11 @@ python3 yn_ifft.py
     \end{align}
 \item Let 
 	\begin{align}
-W_{N} = e^{-j2\pi/N} 
+W_{N} = e^{-j2\pi/N} \label{eq:twiddle}
 	\end{align}
-		Then the $N$-point {\em DFT matrix} is defined as 
+		Then the $N$-point ${ DFT matrix}$ is defined as 
 	\begin{align}
-		\vec{F}_{N} = \sbrak{W_{N}^{mn}}, \quad 0 \le m,n \le N-1 
+		\vec{F}_{N} = \sbrak{W_{N}^{mn}}, \quad 0 \le m,n \le N-1 \label{def:N-point_matrix} 
 	\end{align}
 	where $W_{N}^{mn}$ are the elements of $\vec{F}_{N}$.
 \item Let 
@@ -937,11 +937,11 @@ W_{N} = e^{-j2\pi/N}
 	\end{align}
 		be the $4\times 4$ identity matrix.  Then the 4 point {\em DFT permutation matrix} is defined as 
 	\begin{align}
-		\vec{P}_4 = \myvec{\vec{e}_4^{1} &\vec{e}_4^{3} &\vec{e}_4^{2} &\vec{e}_4^{4} }
+		\vec{P}_4 = \myvec{\vec{e}_4^{1} &\vec{e}_4^{3} &\vec{e}_4^{2} &\vec{e}_4^{4} } \label{elem_mat}
 	\end{align}
-\item The 4 point {\em DFT diagonal matrix} is defined as 
+\item The 4 point ${ DFT diagonal matrix}$ is defined as 
 	\begin{align}
-		\vec{D}_4 = diag\myvec{W_{4}^{0} & W_{N}^{1} & W_{N}^{2} & W_{N}^{3}}
+		\vec{D}_4 = diag\myvec{W_{8}^{0} & W_{8}^{1} & W_{8}^{2} & W_{8}^{3}}
 	\end{align}
 \item Show that 
 \begin{equation}
@@ -949,7 +949,19 @@ W_{N} = e^{-j2\pi/N}
 \end{equation}
 %    \item Find $\vec{P}_6$.
 %    \item Find $\vec{D}_3$.
-    \item Show that 
+\solution 
+	From $\eqref{eq:twiddle}$,
+		\begin{align}
+			W_{N} = e^{-j2\pi/N}
+		\end{align}
+	Consider,
+		\begin{align}
+			W_{N}^{2} &= \brak{e^{-j2\pi/N}}^2 \\
+				  &= e^{-j2\pi/\brak{N/2}} \\
+				  &= W_{N/2}\label{result}
+		\end{align}
+Hence proved.\\
+  \item Show that 
 \begin{equation}
 	\vec{F}_{4}=
 \begin{bmatrix}
@@ -960,8 +972,116 @@ W_{N} = e^{-j2\pi/N}
 \vec{F}_{2} & 0 \\
 0 & \vec{F}_{2}
 \end{bmatrix}
-\vec{P}_{4}
+	\vec{P}_{4}
 \end{equation}
+  \solution From the eq $\eqref{elem_mat}$,
+		\begin{align}
+                  \vec{P}_4 = \myvec{\vec{e}_4^{1} &\vec{e}_4^{3} &\vec{e}_4^{2} &\vec{e}_4^{4} }
+                \end{align}
+Clearly $\vec{P}_4$ is an elementary matrix of $\vec{I}_{4}$, so on multiplication with a matrix it will interchange the rows/columns of matrix depending on positions of unit vectors.\\
+From that it follows ,
+	  \begin{align}
+		  \vec{P}_4^2 = \vec{I}_4
+	  \end{align}
+So it is similar to prove that, 
+  \begin{equation} 
+	  \vec{F}_{4}\vec{P}_{4}=
+\begin{bmatrix}
+        \vec{I}_{2} & \vec{D}_{2} \\
+\vec{I}_{2} & -\vec{D}_{2}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{F}_{2} & 0 \\
+0 & \vec{F}_{2}   
+\end{bmatrix}                    
+\end{equation}
+ Now from $\eqref{def:N-point_matrix}$,
+  \begin{align}
+	  \vec{F}_{2} &= 
+	  \begin{bmatrix}
+		  W_2^{0.0} & W_2^{0.1} \\
+		  W_2^{1.0} & W_2^{1.1}
+	  \end{bmatrix} \\
+	  &= \begin{bmatrix}
+                  W_2^{0} & W_2^{0} \\
+                  W_2^{0} & W_2^{1}
+          \end{bmatrix}
+  \end{align}
+ Using the result $\eqref{result}$, we can write
+   \begin{align}
+   \vec{F}_{2} &= 
+   \begin{bmatrix}
+   	W_4^{0} & W_4^{0} \\
+   	W_4^{0} & W_4^{2}
+   \end{bmatrix} 
+\end{align}
+ And $\vec{D}_{2}$ is a diagonal matrix,
+  \begin{align}
+  	\vec{D}_{2} &= diag\brak{W_4^0,W_4^1} \\
+  	            &= diag\brak{1,W_4}
+  \end{align}
+  Then,
+   \begin{align}
+   	 \vec{D}_2\vec{F}_2 &=\begin{bmatrix}
+   	 	                  1 & 0 \\
+   	 	                  0 & W_4^{1}
+   	                     \end{bmatrix}  
+                         \begin{bmatrix}
+   	 	                  W_4^{0} & W_4^{0} \\
+   	 	                  W_4^{0} & W_4^{2}
+   	                      \end{bmatrix} \\
+                        &= \begin{bmatrix}
+                        	W_4^{0} & W_4^{0} \\
+                        	W_4^{1} & W_4^{3}
+                          \end{bmatrix}
+   \end{align}
+And for $k \in \mathcal{N}$ and $N$ be a even integer we know that,
+ \begin{align}
+ 	W_{N}^{Nk} &= 1 \\
+ 	W_{N}^{Nk + N/2} &= -1
+ \end{align}
+Using that we can write,
+  \begin{align}
+  	-\vec{D}_2\vec{F}_2 &= \begin{bmatrix}
+  		                     W_4^{2} & W_4^{6} \\
+  		                     W_4^{3} & W_4^{9}
+  	                       \end{bmatrix}
+  \end{align}
+And from $\eqref{def:N-point_matrix}$,
+   \begin{align}
+   	\vec{F}_{4} &= \begin{bmatrix}
+   		             W_4^0 &  W_4^0& W_4^0 & W_4^0  \\
+   		             W_4^0 & W_4^1 & W_4^2 & W_4^3  \\
+   		             W_4^0 & W_4^2 & W_4^4 &  W_4^6 \\
+   		             W_4^0 & W_4^3 & W_4^6 & W_4^9   
+   	               \end{bmatrix}
+   \end{align}
+And 
+   \begin{align}
+   	\vec{F}_{4}\vec{P}_{4} &= \begin{bmatrix}
+   		                        W_4^0 &  W_4^0& W_4^0 & W_4^0 \\
+   		                       W_4^0 & W_4^2 & W_4^1 & W_4^3  \\
+   		                       W_4^0 & W_4^4 & W_4^2 &  W_4^6 \\
+   		                       W_4^0 & W_4^6 & W_4^3 & W_4^9       
+   	                          \end{bmatrix}
+   \end{align} 
+  This is same as,
+        \begin{align}
+        	\begin{bmatrix}
+        		\vec{F}_{2} & \vec{D}_{2}\vec{F}_{2} \\
+        		\vec{F}_{2} & -\vec{D}_{2}\vec{F}_{2}
+        	\end{bmatrix}\\
+        \implies \begin{bmatrix}
+        	\vec{I}_{2} & \vec{D}_{2} \\
+        	\vec{I}_{2} & -\vec{D}_{2}
+        \end{bmatrix}
+        \begin{bmatrix}
+        	\vec{F}_{2} & 0 \\
+        	0 & \vec{F}_{2}   
+        \end{bmatrix}   
+        \end{align} 
+    Hence proved.
+      
 \item Show that 
 \begin{equation}
 \vec{F}_{N}=
@@ -1230,7 +1350,7 @@ x(7) \\
 	    \vec{x} = \myvec{1\\2\\3\\4\\2\\1}
         \label{eq:equation1}
     \end{align}
-    compte the DFT  
+    compute the DFT  
 		using 
 	    \eqref{eq:dft-mat-def}
     \item Repeat the above exercise using the FFT
@@ -1244,7 +1364,7 @@ Answer the following questions by looking at the python code in Problem \ref{pro
 \item
 The command
 \begin{lstlisting}
-	output_signal = signal.lfilter(b, a, input_signal)
+output_signal = signal.lfilter(b, a, input_signal)
 	\end{lstlisting}
 in Problem \ref{prob:output} is executed through the following difference equation
 \begin{equation}
