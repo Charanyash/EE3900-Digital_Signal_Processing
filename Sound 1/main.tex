@@ -920,7 +920,7 @@ python3 yn_ifft.py
 \numberwithin{equation}{section}
     \item The DFT of $x(n)$ is given by
     \begin{align}
-        X(k) \triangleq \sum_{n=0}^{N-1} x(n) e^{-j 2 \pi k n / N}, \quad k=0,1, \ldots, N-1
+        X(k) \triangleq \sum_{n=0}^{N-1} x(n) e^{-j 2 \pi k n / N}, \quad k=0,1, \ldots, N-1 \label{def:DFT}
     \end{align}
 \item Let 
 	\begin{align}
@@ -941,7 +941,7 @@ W_{N} = e^{-j2\pi/N} \label{eq:twiddle}
 	\end{align}
 \item The 4 point ${ DFT diagonal matrix}$ is defined as 
 	\begin{align}
-		\vec{D}_4 = diag\myvec{W_{8}^{0} & W_{8}^{1} & W_{8}^{2} & W_{8}^{3}}
+		\vec{D}_4 = diag\myvec{W_{8}^{0} & W_{8}^{1} & W_{8}^{2} & W_{8}^{3}} \label{def-diagonal_matrix}
 	\end{align}
 \item Show that 
 \begin{equation}
@@ -1037,8 +1037,8 @@ So it is similar to prove that,
    \end{align}
 And for $k \in \mathcal{N}$ and $N$ be a even integer we know that,
  \begin{align}
- 	W_{N}^{Nk} &= 1 \\
- 	W_{N}^{Nk + N/2} &= -1
+ 	W_{N}^{Nk} &= 1 \label{result_1}\\
+ 	W_{N}^{Nk + N/2} &= -1\label{result_2}
  \end{align}
 Using that we can write,
   \begin{align}
@@ -1095,16 +1095,164 @@ And
 \end{bmatrix}
 \vec{P}_{N}
 \end{equation}
-\item Find 
+\solution As we saw earlier, it is similar to prove that
+ \begin{align}
+ 	\vec{F}_{N}\vec{P}_{N} &= \begin{bmatrix}
+ 		                      \vec{I}_{N/2} & \vec{D}_{N/2} \\
+ 		                      \vec{I}_{N/2} & \vec{-D}_{N/2}
+ 	                          \end{bmatrix}
+                              \begin{bmatrix}
+                              	\vec{F}_{N/2} &  0 \\
+                              	 0             & \vec{F}_{N/2}
+                            \end{bmatrix}
+ \end{align}
+Assuming that $N$ is even, consider LHS
+ \begin{align}
+ 	\vec{F}_{N}\vec{P}_{N} &= \begin{bmatrix}
+ 		                          W_{N}^{0 \times 0} & W_{N}^{0 \times 2} & ..& W_{N}^{0 \times 1} & W_{N}^{0 \times 3} .. \\
+ 		                           W_{N}^{1 \times 0} & W_{N}^{1 \times 2 } &..& W_{N}^{1 \times 1} & W_{N}^{1 \times 3} .. \\
+ 		                          & & ..&&  \\
+ 		                          & & ..&& \\
+ 		                          W_{N}^{N/2 \times 0} & W_{N}^{N/2 \times 2 } & ..& W_{N}^{N/2 \times 1} & W_{N}^{N/2 \times 3}..  \\
+                                  & & ..&& \\
+                                  && ..&&\\
+                                  W_{N}^{N-1 \times 0} & W_{N}^{N-1 \times 2 } & .. & W_{N}^{N-1 \times 1} & W_{N}^{N-1 \times 3}..  \\ 
+ 		                      \end{bmatrix}
+ \label{matrix_form}
+\end{align}
+On multiplying with $\vec{P}_{N} \brak{\text{permutation matrix}}$, the odd-numbered columns of $\vec{F}_{N}$ shifted towards left.\\
+ Now we can divide the above matrix $\eqref{matrix_form}$, into four sub-matrices as,
+   \begin{align}
+   	           & = \begin{bmatrix}
+                       \sbrak{W_{N}^{n\times 2m}} & \sbrak{W_{N}^{n\times\brak{2m + 1}}} \\ \\
+                       \sbrak{W_{N}^{(n + \frac{N}{2}) \times (2m) }} & \sbrak{W_{N}^{(n + \frac{N}{2}) \times (2m + 1)}}
+                    \end{bmatrix}\\
+               & \text{where}, 0 \leq n,m \leq \frac{N}{2} - 1 \nonumber \\
+               & = \begin{bmatrix}
+               	        \sbrak{\brak{W_{N}^{n\times m}}^2} & \sbrak{W_{N}^{n}\brak{W_{N}^{n\times m}}^2} \\ \\
+               			\sbrak{W_{N}^{Nm}\brak{W_{N}^{n \times m}}^2} & \sbrak{W_{N}^{Nm + N/2}W_{N}^{n}\brak{W_{N}^{n \times m}}^2}
+               	   \end{bmatrix}
+   \end{align}
+Using $\eqref{result_1}$, $\eqref{result_2}$ and $\eqref{result}$
+ \begin{align}
+ 	  & =  \begin{bmatrix}
+ 	  	       \sbrak{W_{\frac{N}{2}}^{n\times m}} & \sbrak{W_{N}^{n}W_{\frac{N}{2}}^{n\times m}}\\ \\
+ 	  	       \sbrak{W_{\frac{N}{2}}^{n\times m}} & \sbrak{-W_{N}^{n}W_{\frac{N}{2}}^{n\times m}}
+ 	       \end{bmatrix}
+ \end{align}
+Now from def $\eqref{def:N-point_matrix}$ and $\eqref{def-diagonal_matrix}$, we can write,
+  \begin{align}
+  	   & =  \begin{bmatrix}
+  	  	      \vec{F}_{\frac{N}{2}} &\vec{D}_{\frac{N}{2}}\vec{F}_{\frac{N}{2}}\\
+  	  	       \vec{F}_{\frac{N}{2}}& -\vec{D}_{\frac{N}{2}}\vec{F}_{\frac{N}{2}}
+  	        \end{bmatrix} \\
+    \implies 	\vec{F}_{N}\vec{P}_{N} &= \begin{bmatrix}
+                                          	\vec{I}_{N/2} & \vec{D}_{N/2} \\
+    	                                    \vec{I}_{N/2} & \vec{-D}_{N/2}
+                                          \end{bmatrix}
+                                         \begin{bmatrix}
+    	                                  \vec{F}_{N/2} &  0 \\
+                                              	0       & \vec{F}_{N/2}
+                                         \end{bmatrix}
+  \end{align}  
+Hence proved.\\
+\textbf{Note :} If we want to do the above matrix decomposition recursively the value of $N$ should in the form of $2^{k}$.
+          \item Find 
     \begin{align}
 	     \vec{P}_4 \vec{x}
+    \end{align}
+\solution Let $\vec{x}$,
+       \begin{align}
+       	\vec{x} &= \begin{bmatrix}
+       		        x(0) \\ 
+       	         	x(1) \\ 
+       		        x(2) \\ 
+       		        x(3)
+       	           \end{bmatrix}
+       \end{align}
+     and $\vec{P}_4$ is 4 - point permutation matrix.\\
+    So,
+    \begin{align}
+    	\vec{P}_{4}\vec{x} &= \begin{bmatrix}
+                               1 & 0 & 0 & 0 \\
+                               0 & 0 & 1 & 0 \\
+                               0 & 1 & 0 & 0 \\
+                               0 & 0 & 0 & 1   		
+     	                      \end{bmatrix}
+                              \begin{bmatrix}
+                              	x(0) \\ 
+                              	x(1) \\ 
+                              	x(2) \\ 
+                              	x(3)
+                              \end{bmatrix} \\
+                          &= \begin{bmatrix}
+                          	   x(0) \\
+                          	   x(2) \\
+                          	   x(1) \\
+                          	   x(3)
+                             \end{bmatrix} 
     \end{align}
 \item Show that 
     \begin{align}
 	    \vec{X} = \vec{F}_N \vec{x}
 	    \label{eq:dft-mat-def}
     \end{align}
-		where $\vec{x}, \vec{X}$ are the vector representations of $x(n), X(k)$ respectively.
+		where $\vec{x}, \vec{X}$ are the vector representations of $x(n), X(k)$ respectively.\\
+\solution From $\eqref{def:DFT}$,
+   \begin{align}
+   	X(k) &= \sum_{n=0}^{N-1} x(n) W^{kn}
+   \end{align}
+  Now we will try to convert the above expression into matrix equations,
+   \begin{align}
+   	&X(0) = \sum_{n=0}^{N-1} x(n) W^{0.n} \\
+   	     &= \myvec{W^{0.0}\\ W^{0.1} \\ W^{0.2} \\ W^{0.(N-1)}}^T\myvec{
+   	     	                                                x(0)\\
+   	     	                                                x(1)\\
+   	     	                                                x(2)\\
+   	     	                                                 .\\
+   	     	                                                 .\\
+   	     	                                                x(N-1)
+   	     	                                               }
+    \end{align}
+    \begin{align}
+   &X(1) = \myvec{W^{1.0} \\ W^{1.1} \\ W^{1.2} \\ W^{1.(N-1)}}^T\myvec{
+                                                         	x(0)\\
+   	                                                        x(1)\\
+   	                                                        x(2)\\
+   	                                                         .\\
+   	                                                         .\\
+   	                                                       x(N-1)
+                                                           }\\
+         &.\nonumber \\
+         &. \nonumber 
+     \end{align}
+     \begin{align}
+   &X(N-1) = \myvec{W^{(N-1)\times0} \\W^{(N-1)\times1}\\ W^{(N-1)\times2}\\  W^{(N-1)\times(N-1)}}^T\myvec{
+                                  x(0)\\
+   	                              x(1)\\
+   	                              x(2)\\
+   	                               .\\
+   	                               .\\
+   	                             x(N-1)
+                                }\\
+  &\vec{X} = \nonumber\\ &\begin{bmatrix}
+  		W_N^{0\times0}&W_N^{0\times1}&..&W_N^{0\times N-1}\\
+  		..&..&..&..\\
+  		W_N^{N-1 \times 0}&W_N^{N-1 \times 1}&..&W_N^{N-1 \times N-1}
+  	\end{bmatrix}\myvec{
+  	x(0)\\
+  	x(1)\\
+  	x(2)\\
+  	.\\
+  	.\\
+  	x(N-1)
+  }
+  \end{align}
+From def $\eqref{def:N-point_matrix}$,
+ \begin{align}
+ 	\vec{X} &= \vec{F}_{N}\vec{x}
+ \end{align}
+ Hence proved.
 \item Derive the following Step-by-step visualisation  of
 8-point FFTs into 4-point FFTs and so on
 \begin{equation}
