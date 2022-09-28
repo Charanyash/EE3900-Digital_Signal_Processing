@@ -1282,6 +1282,7 @@ X_{2}(1) \\
 X_{2}(2) \\
 X_{2}(3)
 \end{bmatrix}
+\label{8to4_1}
 \end{equation}
 \begin{equation}
 \begin{bmatrix}
@@ -1310,6 +1311,7 @@ X_{2}(1) \\
 X_{2}(2) \\
 X_{2}(3)
 \end{bmatrix}
+\label{8to4_2}
 \end{equation}
 4-point FFTs into 2-point FFTs
 \begin{equation}
@@ -1332,6 +1334,7 @@ X_{4}(0) \\
 X_{4}(1) \\ 
 \end{bmatrix}
 \end{equation}
+\label{4to2_1}
 \begin{equation}
 \begin{bmatrix}
 X_{1}(2) \\ 
@@ -1351,6 +1354,7 @@ W^{0}_{4} & 0\\
 X_{4}(0) \\ 
 X_{4}(1) \\ 
 \end{bmatrix}
+\label{4to2_2}
 \end{equation}
 \begin{equation}
 \begin{bmatrix}
@@ -1371,6 +1375,7 @@ W^{0}_{4} & 0\\
 X_{6}(0) \\ 
 X_{6}(1) \\ 
 \end{bmatrix}
+\label{4to2_3}
 \end{equation}
 \begin{equation}
 \begin{bmatrix}
@@ -1391,6 +1396,7 @@ W^{0}_{4} & 0\\
 X_{6}(0) \\ 
 X_{6}(1) \\ 
 \end{bmatrix}
+\label{4to2_4}
 \end{equation}
 \begin{equation}
 P_{8}
@@ -1414,7 +1420,7 @@ x(1) \\
 x(3) \\ 
 x(5) \\
 x(7)
-\end{bmatrix}
+\end{bmatrix}\label{P_8}
 \end{equation}
 \begin{equation}
 P_{4}
@@ -1430,7 +1436,7 @@ x(0) \\
 x(4) \\ 
 x(2) \\
 x(6)
-\end{bmatrix}
+\end{bmatrix}\label{P4_1}
 \end{equation}
 \begin{equation}
 P_{4}
@@ -1446,7 +1452,7 @@ x(1) \\
 x(5) \\ 
 x(3) \\ 
 x(7) \\
-\end{bmatrix}
+\end{bmatrix}\label{P4_2}
 \end{equation}
 Therefore,
 \begin{equation}
@@ -1493,6 +1499,82 @@ x(3) \\
 x(7) \\ 
 \end{bmatrix}
 \end{equation}
+\solution The 8-point FFT can be expressed as,
+ \begin{align}
+ 	X(k) &= \sum_{0}^{7}x(n)e^{\frac{-2\pi kn}{8}} \\
+ 	     &= \sum_{0}^{3}x(2n)e^{\frac{-2 \pi kn}{4}} + \sum_{1}^{3}e^{\frac{-2 \pi k\brak{2n+1}}{8}} \\
+ 	     &= \sum_{0}^{3}x(2n)e^{\frac{-2 \pi kn}{4}} + e^{\frac{-2 \pi k}{8}}\sum_{1}^{3}x(2n)e^{\frac{-2 \pi kn}{4}}
+  \end{align}
+ Call these 4 - point FFTs as $X_1$ and $X_2$,
+  \begin{align}
+  	X(k) & =X_1(k) + W_{8}^kX_2(k)
+  \end{align}  
+Now consider,
+  \begin{align}
+  	X(k+4) &= X_1(k+4)  + W_{8}^{k + 4}X_2(k+4)\\
+           & = X_1(k) -W_{8}^kX_2(k) \label{8to4} 	      
+   \end{align}
+Since the twiddle factors along with $X_1$ and $X_2$ are of 4-point $X_1(k+4) =X_1(k)$ and $X_2(k+4) = X_2(k)$. \\
+With that $\eqref{8to4}$ we can see how $\eqref{8to4_1}$ and $\eqref{8to4_2}$ are derived.\\
+Now consider these 4-point FFTs,
+ \begin{align}
+ 	X_1(k) &= \sum_{0}^{1}x(4n)e^{\frac{-j 2\pi nk}{2}} + e^{\frac{-j2\pi k}{4}}\sum_{0}^{1}x(4n+2)e^{\frac{-j2\pi nk}{2}} \\
+ 		   &= X_3(k) + W_4^kX_4(k)
+ 	\end{align}
+ where, $X_3(k)$ and $X_4(k)$ are 2-point FFTs of $x_1(n) = x_1(4n)$ and $x_2(n) = x(4n+2)$.\\
+ And you can see that,
+  \begin{align}
+  	X_1(k+2) &= X_3(k) - W_{4}^kX_4(k)
+  \end{align}
+With that we can see how we got $\eqref{4to2_1}$ and $\eqref{4to2_2}$. \\
+And similarly we can write the 2-point FFTs from $X_2(k)$ as $X_5(k)$  and $X_6(k)$ of subsequences $x(4n+1)$ and $x(4n+3)$.\\
+With that we can get $\eqref{4to2_3}$ and $\eqref{4to2_4}$. \\
+Mathematically we can write these 2-point FFTs as,
+\begin{equation}
+	\begin{bmatrix}
+		X_{3}(0) \\ 
+		X_{3}(1)\\ 
+	\end{bmatrix}
+	= F_{2}
+	\begin{bmatrix}
+		x(0) \\ 
+		x(4) \\ 
+	\end{bmatrix}
+\end{equation}
+\begin{equation}
+	\begin{bmatrix}
+		X_{4}(0) \\ 
+		X_{4}(1)\\ 
+	\end{bmatrix}
+	= F_{2}
+	\begin{bmatrix}
+		x(2) \\ 
+		x(6) \\ 
+	\end{bmatrix}
+\end{equation}
+\begin{equation}
+	\begin{bmatrix}
+		X_{5}(0) \\ 
+		X_{5}(1)\\ 
+	\end{bmatrix}
+	= F_{2}
+	\begin{bmatrix}
+		x(1) \\ 
+		x(5) \\ 
+	\end{bmatrix}
+\end{equation}
+\begin{equation}
+	\begin{bmatrix}
+		X_{6}(0) \\ 
+		X_{6}(1)\\ 
+	\end{bmatrix}
+	= F_{2}
+	\begin{bmatrix}
+		x(3) \\ 
+		x(7) \\ 
+	\end{bmatrix}
+	\end{equation}
+where, the subsequences required for each 2-point FFT can be obtained from $\eqref{P_8}$ , $\eqref{P4_1}$ and $\eqref{P4_2}$.
 \item For 
     \begin{align}
 	    \vec{x} = \myvec{1\\2\\3\\4\\2\\1}
@@ -1500,11 +1582,65 @@ x(7) \\
     \end{align}
     compute the DFT  
 		using 
-	    \eqref{eq:dft-mat-def}
+	    $\eqref{eq:dft-mat-def}$\\
+\solution Download the below python code,
+ \begin{lstlisting}
+ wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/X_k_dft.py
+ \end{lstlisting} 
+Then run the following command on terminal,
+\begin{lstlisting}
+python3 X_k_dft.py
+\end{lstlisting}
+The plot of DFT can be seen in Fig \ref{DFT_matrix}
+\begin{figure}[!h]
+	\includegraphics[width = \columnwidth]{Figs/X_k_dft.png}
+	\centering
+	\caption{DFT using DFT matrix}
+	\label{DFT_matrix}
+\end{figure}
     \item Repeat the above exercise using the FFT
-	    after zero padding $\vec{x}$.
+	    after zero padding $\vec{x}$.\\
+	\solution Download the below python code,
+	\begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/X_k_fft.py
+	\end{lstlisting} 
+	Then run the following command on terminal,
+	\begin{lstlisting}
+python3 X_k_fft.py
+	\end{lstlisting}
+	The plot of DFT can be seen in Fig \ref{DFT_fft}
+	\begin{figure}[!ht]
+		\includegraphics[width = \columnwidth]{Figs/X_k_fft.png}
+		\centering
+		\caption{FFT using Matrix decompostion}
+		\label{DFT_fft}
+	\end{figure}
 %	    \eqref{eq:fft-mat-def}
-\item Write a C program to compute the 8-point FFT. 
+\item Write a C program to compute the 8-point FFT. \\
+ \solution Download the C code from the following link 
+  \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/X_k_fft.c 
+  \end{lstlisting}
+Then run the following command,
+\begin{lstlisting}
+cc X_k_fft.c -lm
+./a.out
+\end{lstlisting}
+Download the below python code which uses fft.dat file from the C code.
+\begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/blob/master/Sound%201/Codes/X_k_8point.py
+\end{lstlisting}
+Then run the following command for the plot,
+\begin{lstlisting}
+python3 X_k_8point.py
+\end{lstlisting}
+You will get output of DFT of $x(n)$.
+\begin{figure}[!ht]
+	\includegraphics[width = \columnwidth]{Figs/X_k_8point.png}
+	\centering
+	\caption{FFT using C code}
+	\label{DFT_fft}
+\end{figure}
  \end{enumerate}
 \section{Exercises}
 Answer the following questions by looking at the python code in Problem \ref{prob:output}.
