@@ -12,4 +12,9 @@ Roll No : AI21BTECH11019
     1. Assignment 1
     - Given on 23 Aug,2022
     - Completed :relieved:  
-  
+    2. Assignment 2
+    - Given on 25 Sep 2022
+    - Just Saw :fear:
+ 3. Pingala Series
+   - Given on 30 Sep 2022 
+   - Solving

@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 x_n = np.array([1,2,3,4,2,1])
 pad_x_n = np.pad(x_n,(0,2),'constant',constant_values = (0))
