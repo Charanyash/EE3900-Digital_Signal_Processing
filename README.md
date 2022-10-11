@@ -14,7 +14,7 @@ Roll No : AI21BTECH11019
     - Completed :relieved:  
     2. Assignment 2
     - Given on 25 Sep 2022
-    - Just Saw :scream:
+    - Completed :relieved:
  3. Pingala Series
    - Given on 30 Sep 2022 
-   - Just Saw :scream:
+   - Started :worried:
