@@ -250,19 +250,53 @@ Verify the following using a python code.
 \begin{align}
 	\sum_{k=1}^{n}a_k = a_{n+2}-1, \quad n \ge 1
 \end{align}
+\solution Download the following python code from the below link,
+  \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/pingala/Codes/1.py
+  \end{lstlisting}
+Then run the following command,
+  \begin{lstlisting}
+python3 1.py
+  \end{lstlisting}
+  \begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/1.1.png}
+ \centering
+ \caption{}
+ \label{fig:1}
+\end{figure}
  \item 
 \begin{align}
 	\sum_{k=1}^{\infty}\frac{a_k}{10^k} =\frac{10}{89}
 \end{align}
+ \solution
+ \begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/1.2.png}
+ \centering
+ \caption{}
+ \label{fig:2}
+\end{figure}
  \item 
 \begin{align}
 	b_n =\alpha^n + \beta^n, \quad n \ge 1
 \end{align}
+ \solution
+ \begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/1.3.png}
+ \centering
+ \caption{}
+ \label{fig:3}
+\end{figure}
  \item 
 \begin{align}
 	\sum_{k=1}^{\infty}\frac{b_k}{10^k} =\frac{8}{89}
 \end{align}
-
+\solution As you can see in the $\ref{fig:4}$, the summation is converging to $\frac{12}{89}$ but not $\frac{8}{89}$.
+\begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/1.4.png}
+ \centering
+ \caption{}
+ \label{fig:4}
+\end{figure}
 \end{enumerate}
 \section{Pingala Series}
 \begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
@@ -277,18 +311,113 @@ Verify the following using a python code.
 	x(n+2) = x\brak{n+1} + x\brak{n},  \quad x(0) = x(1) = 1, n \ge 0
 	\label{eq:10-pingala}
 \end{align}
-Generate a stem plot for $x(n)$.
-\item 		Find $X^{+}(z)$.
-	\item Find $x(n)$.
+Generate a stem plot for $x(n)$.\\
+\solution Download the below python code,
+  \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/pingala/Codes/2.py
+  \end{lstlisting}
+  Then run the following command,
+  \begin{lstlisting}
+python3 2.py
+\end{lstlisting}
+\begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/2.2.png}
+ \centering
+ \caption{}
+ \label{fig:5}
+\end{figure}
 
+\item 	Find $X^{+}(z)$.\\
+	\solution Consider the eq :$\eqref{eq:10-pingala}$,
+	  \begin{align}
+		x(n+2) &= x(n+1) + x(n)
+	  \end{align}
+	  Now apply one-sided $Z$-transform on both sides,$(\text{using linearity})$
+         \begin{align}
+		 \sum_{n=0}^{\infty}x(n+2)z^{-n} = \sum_{n=0}^{\infty}x(n+1)z^{-n} + \sum_{n=0}^{\infty}x(n)z^{-n} 
+         \end{align}
+	 \begin{align}
+		 z^2\brak{X^{+}(z) - x(1)z^{-1} - x(0)} &= z\brak{X^{+}(z) - x(0)} + X^{+}(z)
+	 \end{align}
+	 \begin{align}
+		 X^{+}(z) &= \frac{x(1)z + x(0)\brak{z^2 - z}}{z^2 - z -1} \\
+		 \implies X^{+}(z) &= \frac{1}{1-z^{-1}-z^{-2}} \label{eq:X_z} \brak{\abs{z} \neq 0}
+	 \end{align}
+	\item Find $x(n)$. \\
+	 \solution We know that,
+	  \begin{align}
+            X^{+}(z) &= \frac{1}{1-z^{-1}-z^{-2}} 
+          \end{align}
+	  Using partial fractions,
+	   \begin{align}
+		   &= \frac{1}{\brak{1-\alpha z^{-1}}\brak{1-\beta z^{-1}}} \\
+		   &= \frac{1}{\alpha - \beta}\brak{\frac{\alpha}{1-\alpha z^{-1}} - \frac{\beta}{1-\beta z^{-1}}}
+	   \end{align}
+	     where $\alpha , \beta$ are the roots of the equation,
+	      \begin{align}
+		      z^2 - z -1 =0
+	      \end{align}
+          Using the result of $Z$-transform,
+	  \begin{align}
+	   a^nu(n) \ztrans \frac{1}{1-az^{-1}} \quad \abs{z} > \abs{a} \\
+          \end{align}
+	      We can write, 
+	      \begin{align}
+		      x(n) &= \frac{\alpha^{n+1} - \beta^{n+1}}{\alpha -\beta}\label{eq:x_n} 
+	      \end{align}
+	      with ROC as,
+	          \begin{align}
+			  \abs{z} > \text{max}\cbrak{\alpha,\beta}
+		  \end{align}
 	\item Sketch 
 \begin{align}
 	y(n)	 = x\brak{n-1} + x\brak{n+1},  \quad n \ge 0
 	\label{eq:10-orig-diff-rev}
 \end{align}
 
-	\item Find $Y^{+}(z)$. 
-\item Find $y(n)$.
+\solution Download the below python code,
+  \begin{lstlisting}
+wget https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/pingala/Codes/2.py
+  \end{lstlisting}
+  Then run the following command,
+  \begin{lstlisting}
+python3 2.py
+\end{lstlisting}
+\begin{figure}[!ht]
+ \includegraphics[width = \columnwidth]{Figs/2.5.png}
+ \centering
+ \caption{}
+ \label{fig:6}
+\end{figure}
+\item Find $Y^{+}(z)$.\\
+ \solution Apply the one-sided $Z$-transform on $\eqref{eq:10-orig-diff-rev}$,
+  \begin{align}
+       \sum_{n=0}^{\infty}y(n)z^{-n} &= \sum_{n=0}^{\infty}x(n-1)z^{-n} + \sum_{n=0}^{\infty}x(n+1)z^{-n} \\
+                                     &= z^{-1}\brak{X^{+}(z) - x(-1)} + z\brak{X^{+}(z) - x(0)} 
+  \end{align}
+  Using $\eqref{eq:10-pingala}$ and $\eqref{eq:X_z}$,
+   \begin{align}
+	   Y^{+}(z) &= \frac{z^{-1}}{1-z^{-1}-z^{-2}} + \frac{1 + z^{-1}}{1 - z^{-1}-z^{-2}} \\
+	   \implies Y^{+}{z} &= \frac{1+ 2z^{-1}}{1-z^{-1}-z^{-2}} \label{eq:Y_z}
+   \end{align}
+\item Find $y(n)$. \\
+	\solution Consider $\eqref{eq:Y_z}$,
+	 \begin{align} 
+             Y^{+}{z} &= \frac{1+ 2z^{-1}}{1-z^{-1}-z^{-2}} \\
+	              &= X^{+}(z) + 2z^{-1}X^{+}(z)
+	 \end{align}
+	Using $\eqref{eq:x_n}$ and the property of z-transform that,
+	 \begin{align}
+		 x(n-1) \ztrans z^{-1}X^{+}(z)
+         \end{align}
+      we can write the inverse z-transform of $Y^{+}(z)$ (using ROC as $\abs{z} > \text{max}\cbrak{\alpha,\beta}$) as,
+        \begin{align}
+		y(n) &= x(n) + 2x(n-1) \\
+		     &=  \frac{\alpha^{n+1} - \beta^{n+1}}{\alpha -\beta} + 2 \frac{\alpha^{n} - \beta^{n}}{\alpha -\beta} \\
+		     &= \frac{\alpha^{n+2} + \alpha^{n} - \beta^{n+2} - \beta^{n}}{\alpha - \beta} \\
+		     &= \frac{\alpha^{n+2} - \beta^{n+2} -\beta\alpha^{n+1} + \beta^{n+1}\alpha}{\alpha-\beta} \brak{\because \alpha\beta = -1} \\
+	 \implies y(n) &= \alpha^{n+1} + \beta^{n+1}
+	\end{align}
 \end{enumerate}
 \section{Power of the Z transform}
 \begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
