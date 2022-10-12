@@ -17,4 +17,4 @@ Roll No : AI21BTECH11019
     - Completed :relieved:
  3. Pingala Series
    - Given on 30 Sep 2022 
-   - Started :worried:
+   - Solved 2/3 :smiley:
