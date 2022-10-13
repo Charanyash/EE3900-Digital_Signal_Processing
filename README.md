@@ -17,4 +17,10 @@ Roll No : AI21BTECH11019
     - Completed :relieved:
  3. Pingala Series
    - Given on 30 Sep 2022 
-   - Solved 2/3 :smiley:
+   - Completed :relieved:
+ 4. Circuits and Transforms
+   - Given on 30 Sep 2022
+   - Just Saw :confused:
+ 5. Fourier 
+   - Given on 12 Oct 2022
+   - Just Saw :worried:

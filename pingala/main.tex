@@ -371,8 +371,7 @@ python3 2.py
 		  \end{align}
 	\item Sketch 
 \begin{align}
-	y(n)	 = x\brak{n-1} + x\brak{n+1},  \quad n \ge 0
-	\label{eq:10-orig-diff-rev}
+	y(n)	 = x\brak{n-1} + x\brak{n+1},  \quad n \ge 0 \label{eq:10-orig-diff-rev}
 \end{align}
 
 \solution Download the below python code,
@@ -424,8 +423,22 @@ python3 2.py
 \item Show that 
 \begin{align}
 	\sum_{k=1}^{n}a_k = 
-	\sum_{k=0}^{n-1}x(n) = x(n)*u(n-1)
+	\sum_{k=0}^{n-1}x(k) = x(n)*u(n-1)
 \end{align}
+\solution The first part of the equation is trivial, 
+   \begin{align}
+     \because a_k = x(k-1)
+   \end{align}
+For the second part, 
+ \begin{align}
+	 x(n)*u(n-1) &= \sum_{k = -\infty}^{\infty}x(k)u(n-k-1) \\
+	             &= \sum_{k = 0}^{\infty}x(k)u(n-k-1) \\ 
+		     & \brak{\because x(k) = 0, k < 0} \nonumber \\
+		     &= \sum_{k=0}^{n-1}x(k) \\
+		     &\brak{\because u(n-k-1) = 0\, \, k  >=n} \nonumber
+ \end{align}
+
+Hence proved.
 \item Show that 
 \begin{align}
 a_{n+2}-1, \quad n \ge 1
@@ -434,12 +447,34 @@ can be expressed as
 \begin{align}
 	\sbrak{x\brak{n+1}-1}u\brak{n}
 \end{align}
+\solution Here we have, 
+\begin{align}
+a_{n+2}-1, \quad n \ge 1
+\end{align}
+We know that,
+ \begin{align}
+	 a_k = x(k - 1)\label{eq:relation}
+ \end{align}
+ Using that,
+  \begin{align}
+     x(n+1) - 1 \quad n+1 \geq 1
+  \end{align}
+  We can generalise the above signal for all $n$, using $u(n)$
+   \begin{align}
+	   \brak{x(n+1) - 1}u(n)
+   \end{align}
+  Hence proved. \\
  \item Show that 
 \begin{align}
 	\sum_{k=1}^{\infty}\frac{a_k}{10^k}= 
-	\frac{1}{10}\sum_{k=0}^{\infty}\frac{x\brak{k}}{10^k} =\frac{1}{10}X^{+}\brak{{10}}
+	\frac{1}{10}\sum_{k=0}^{\infty}\frac{x\brak{k}}{10^k} =\frac{1}{10}X^{+}\brak{10}
 \end{align}
- \item Show that 
+\solution Using $\eqref{eq:relation}$, we can get the first part. Now for the second part,
+ \begin{align}
+	 \frac{1}{10}\sum_{k=0}^{\infty}\frac{x\brak{k}}{10^k} &= \frac{1}{10}\sum_{k=0}^{\infty}x\brak{k}\brak{10}^{-k} \\
+							       &= \frac{1}{10}X^{+}\brak{10}
+ \end{align}
+  \item Show that 
 \begin{align}
 	\alpha^n + \beta^n, \quad n \ge 1
 \end{align}
@@ -447,16 +482,87 @@ can be expressed as
 \begin{align}
 	w(n) =\brak{\alpha^{n+1} + \beta^{n+1}}u(n)
 \end{align}
-		and find $W(z)$.
-
- \item Show that 
+		and find $W(z)$.\\
+ \solution Put $n:= k +1$,
+  \begin{align}
+	  \alpha^{k+1} + \beta^{k+1} , \quad k \ge 0 \\
+  \end{align}
+  We will represent the above expression $\forall k$ as,
+   \begin{align}
+	   w(k) &= \brak{\alpha^{k+1} + \beta^{k+1}}u(n)
+   \end{align}
+   Change of variable,
+    \begin{align}
+	    w(n) &= \brak{\alpha^{n+1} + \beta^{n+1}}u(n)
+    \end{align}
+ Hence proved.\\
+ Now we will try to find the z-transform of $w(n)$,
+ \begin{align}
+	 \sum_{n = -\infty}^{\infty}w(n)z^{-n} &= \sum_{n = 0}^{\infty}\brak{\alpha^{n+1} + \beta^{n+1}}z^{-n} \\
+					       &= \alpha\sum_{n=0}^{\infty}\brak{\frac{\alpha}{z}}^{n} + \beta\sum_{n=0}^{\infty}\brak{\frac{\beta}{z}}^{n} \\
+					       &= \frac{\alpha}{1 - \frac{\alpha}{z}} + \frac{\beta}{1 - \frac{\beta}{z}}
+ \end{align}
+ With ROC $\abs{z} > \text{max}{\alpha,\beta}$, and on solving
+ \begin{align}
+                W(z) &= \frac{1 + 2z^{-1}}{1 - z^{-1} - z^{-2}}
+ \end{align}
+ $\because \alpha , \beta$ are roots of $z^2 - z -1 = 0$.
+\item Show that 
 \begin{align}
 	\sum_{k=1}^{\infty}\frac{b_k}{10^k} =
-	\frac{1}{10}\sum_{k=0}^{\infty}\frac{y\brak{k}}{10^k} =\frac{1}{10}Y^{+}\brak{{10}}
+	\frac{1}{10}\sum_{k=0}^{\infty}\frac{y\brak{k}}{10^k} =\frac{1}{10}Y^{+}\brak{10}
 \end{align}
-\item Solve the JEE 2019 problem.
+\solution We get the first part using the following relation,
+  \begin{align}
+	  b_k &= y(k-1)
+  \end{align}
+ Now for the second part,
+  \begin{align}
+	 \frac{1}{10}\sum_{k=0}^{\infty}\frac{y\brak{k}}{10^k} &= \frac{1}{10}\sum_{k=0}^{\infty}y\brak{k}\brak{10}^{-k} \\
+							       &= \frac{1}{10}Y^{+}\brak{10}
+  \end{align}
+Hence proved.\\
+\item Solve the JEE 2019 problem.\\
+\solution As we proved earlier,
+ \begin{align}
+   \sum_{k=1}^{n}a_k &= x(n)*u(n-1) \\
+   a_{n+2} - 1 &= \brak{x(n+1) - 1}u(n)
+ \end{align}
+with $n \ge 1$. 
+ \begin{align}
+     x(n)*u(n-1) &= \sum_{k=0}^{\infty}x(k)u(n-k-1) \\ 
+                 &= \sum_{k=0}^{n-1}x(k) 
+   \end{align}
+Now since $x(n)$ is a pingala series,
+ \begin{align}
+	 \sum_{k=0}^{n-1}x(k) &= x(n+1) - 1  \\
+ \end{align}
+ So we can write that,
+  \begin{align}
+	  \sum_{k=1}^{n}a_k &= a_{n+2} - 1  \brak{n >=1}
+  \end{align}
+  And using $\eqref{eq:X_z}$,
+ \begin{align}
+	 \sum_{k=1}^{\infty}\frac{a_k}{10^k}&= \frac{1}{10}X^{+}\brak{10} \\
+					    &= \frac{1}{10}\brak{\frac{1}{1 - 10^{-1} - 10^{-2}}} \\
+					    &= \frac{10}{89}
+ \end{align}
 
+And similarly,
+ \begin{align}
+       \sum_{k=1}^{\infty}\frac{b_k}{10^k}&= \frac{1}{10}Y^{+}\brak{10} \\
+					  &= \frac{1}{10}\brak{\frac{1 + 2(10)^{-1}}{1 - 10^{-1} - 10^{-2}}} \\
+					    &= \frac{12}{89}
+ \end{align}
+
+And we know,
+ \begin{align}
+	 b_n &= y(n-1) \\
+	y(n) &= \alpha^{n+1} + \beta^{n+1} \\
+	\implies b_n &= \alpha^{n} + \beta^{n} \forall n \ge 1
+ \end{align}
+Therefore all the options are correct except the last one.
 \end{enumerate}
 
 
-\end{document}t
+\end{document}
