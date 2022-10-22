@@ -1,6 +1,6 @@
 # EE3900-Digital_Signal_Processing
 This repo consists of solutions of assignments of course EE3900 **Digital Signal Processing** taught by [Dr.G.V.V Sharma](https://github.com/gadepall) in Indian Institute Of Technology Hyderabad.    
-Name : Mannem Charan  
+Name : Mannem Charan    
 Roll No : AI21BTECH11019  
   
 ## Progress So Far ..
@@ -20,7 +20,7 @@ Roll No : AI21BTECH11019
    - Completed :relieved:
  4. Circuits and Transforms
    - Given on 30 Sep 2022
-   - Just Saw :confused:
+   - Solving :expressionless:
  5. Fourier 
    - Given on 12 Oct 2022
    - Just Saw :worried:
