@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+x = [-2,4,4,-2,-2]
+y = [4,4,-4,-4,4]
+
+
+plt.fill_between(x,y,hatch="///",facecolor='grey')
+ax = plt.gca()
+
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['bottom'].set_position('zero')
+ax.set_xlabel('Re(s)',loc='right')
+ax.set_ylabel('Im(s)',loc='top')
+
+plt.setp(ax.get_yticklabels(), visible=False)
+plt.xticks([-2],['-a'])
+
+plt.title('ROC')
+
+plt.savefig("./Figs/2.5.png")
+plt.show()
