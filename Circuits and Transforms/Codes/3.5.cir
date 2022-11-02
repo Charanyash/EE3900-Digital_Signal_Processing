@@ -8,6 +8,7 @@ C0 vc 0 1u ic=1.333333
 .control
 run
 wrdata 3.5.dat V(vc)
+quit
 .endc
 
 .end

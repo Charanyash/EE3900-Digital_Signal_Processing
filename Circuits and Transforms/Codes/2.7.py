@@ -17,10 +17,10 @@ def V_c(t):
 t = np.linspace(0,0.00001,1000000)
 
 vec_V_c  = scipy.vectorize(V_c)
-
+plt.grid()
 plt.plot(t,vec_V_c(t))
 plt.xlabel("$t$")
 plt.ylabel("$V_c(t)$")
-plt.savefig("Figs/2.7.png")
+plt.savefig("../Figs/2.7.png")
 plt.show()
 
