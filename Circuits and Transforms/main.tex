@@ -453,7 +453,6 @@ python3 2.8.py
 \item Find $q_2$ in Fig. 
 			$\ref{fig:ckt}$. \\
  \solution After closing switch at $Q$ for long time the circuit looks like $\ref{fig:q_2}$,
- 
  \begin{figure}[!ht]
 	  \begin{center}
 	   \begin{circuitikz}
@@ -607,16 +606,263 @@ python3 3.5.py
 \numberwithin{equation}{section}
 \item In Fig. 
 			\ref{fig:ckt},
-			consider the case when $S$ is switched to $Q$ right in the beginning. Formulate the differential equation.
-		\item Find $H(s)$ considering the ouput voltage at the capacitor.
-		\item Plot $H(s)$.  What kind of filter is it?
-		\item Using trapezoidal rule for integration, formulate the difference equation
+			consider the case when $S$ is switched to $Q$ right in the beginning. Formulate the differential equation.\\
+			\solution When the switch $S$ is switched to $Q$ right from the beginning, the circuit looks like \ref{fig:ckt-Q} 
+ \begin{figure}[!ht]
+	  \begin{center}
+	   \begin{circuitikz}
+		   \draw (0,0) node[left]{$0$}
+	      to [short](0,3)node[above]{$Q$}
+	      to [R,l_ = $1 \Omega$](4,3)node[above]{$V_c$}
+	      to [R,l_ = $ 2 \Omega$](8,3)node[above]{$V_2(t)$}
+	      to [battery1 , l_= $2 V$](8,0) node[right]{$0$}
+	      to [short] (0,0)
+	      ;
+	      \draw (4,3)
+	       to [capacitor, l_ = $1 \mu F$](4,0)
+	       ;
+            \end{circuitikz}
+	   \end{center}
+	   \caption{}
+	   \label{fig:ckt-Q}
+\end{figure}
+So similar what we did earlier we use Kirchoff's Junction Law, 
+    \begin{align}
+	    \frac{v_{c}(t) - 0}{1} +  \frac{dq}{dt} + \frac{v_c(t) - v_2(t)}{2} &= 0 \label{diff_eq}
+    \end{align}
+   where $q(t)$ is the charge on capacitor at time $t$ with initial conditions as,
+    \begin{align}
+	    q(0^-) = q(0) = 0
+    \end{align}
+
+ \item Find $H(s)$ considering the ouput voltage at the capacitor.\\
+	 \solution Here $H(s)$ means transfer function, it relates the output $(\text{response})$ of the system to the given input. Here we are asked to consider voltage at the capacitor as the output. \\
+	 For that first we will do laplace transform of the above differential equation $\eqref{diff_eq}$,
+	  \begin{align}
+		  \frac{V_c(s) -0}{1} + C\brak{sV\brak{s} - v_c(0^-)} + \frac{V_c(s) - V_2(s)}{2} &= 0
+	  \end{align}
+	  We know that  $v_c(0^-) = 0$ using that,
+          \begin{align}
+		  V_c(s)\brak{sC + \frac{3}{2}} &= \frac{V_2(s)}{2} \\
+		  \frac{V_c(s)}{V_2(s)} &= \frac{1}{\brak{2sC + 3}}
+	  \end{align}
+         This will be the transfer function $H(s)$ and substituting $C = 1 \mu F$, you will get
+	  \begin{align}
+                H(s) &= \frac{5 \times 10^5}{s + 1.5 \times 10^6}
+	  \end{align}
+  \item Plot $H(s)$.  What kind of filter is it?\\
+   \solution Download the python code from the below link for the plot,
+           \begin{lstlisting} 
+wget  https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/Circuits%20and%20Transforms/Codes/4.3.py
+	      \end{lstlisting}
+	      Then run the following command
+	 \begin{lstlisting}
+wget python3 4.3.py
+        \end{lstlisting}
+	  \begin{figure}
+	    \centering
+	    \includegraphics[width = \columnwidth]{Figs/4.3.png}
+	    \caption{The plot of transfer function $H(s)$}
+	    \label{fig:H(s)}
+	  \end{figure}
+Now if we consider frequency-domain transfer function by putting $s = j\omega$,
+  \begin{align}
+	  H(j\omega) &=\frac{5 \times 10^5}{j\omega + 1.5 \times 10^6} \\
+	  \implies \abs{H(j\omega)} &=\frac{5 \times 10^5}{\sqrt{\omega^2 + \brak{1.5 \times 10^6}^2}}
+  \end{align}
+     As you can see , when $\omega$ increases the magnitude of transfer function $\abs{H(j\omega)}$ decreases.\\
+     In other words, when the high frequency signals are passed as input their amplitudes will get diminished and filtered out. \\
+     So this filter acts like a low-pass filter.
+   \item Using trapezoidal rule for integration, formulate the difference equation
 			by considering 
 		\begin{align}
 			y(n) = y(t)\vert_{t=n}
 		\end{align}
-	\item Find $H(z)$.
-	\item How can you obtain $H(z)$ from $H(s)$?
+		\solution To derive the difference equation, we will consider the differntial equation $\eqref{diff_eq}$,
+    \begin{align}
+	    \frac{v_{c}(t) - 0}{1} +  \frac{dq}{dt} + \frac{v_c(t) - v_2(t)}{2} &= 0 \\
+	    \frac{v_{c}(t) -0}{1} + C\frac{dv_{c}(t)}{dt} + \frac{v_c(t) - v_2(t)}{2} &= 0
+    \end{align}
+    \begin{align}
+	    C\frac{dv_{c}(t)}{dt} &= \frac{v_2(t) - 3v_c(t)}{2}\\
+	    \implies v_{c}(t)\vert_{t = n}^{n+1} &= \frac{1}{C}\int_{n}^{n+1}\frac{v_2(t) - 3v_c(t)}{2} dt
+    \end{align}
+    Here we can use trapezoidal rule of integration for $n = 1 (\text{no.of sub intervals})$,
+     \begin{align}
+	     \int_{a}^{b}f(x)dx \approx \frac{b-a}{2}\brak{f(a) + f(b)}
+     \end{align}
+     Along with this rule,considering that $y(t) = v_c(t)$ and $y(n) = y(t)\vert_{t=n}$ we can write that
+      \begin{align}
+           y(n+1) - y(n) &= \frac{1}{2C}\brak{\frac{v_2(n) + v_2(n+1)}{2}} \nonumber \\
+                    &- \frac{1}{2C}\frac{3\brak{y(n) + y(n+1)}}{2}
+      \end{align}
+      Now using the fact that $v_2(t) = 2u(t)$,
+       \begin{align}
+        y(n+1) - y(n) &= \frac{1}{2C}\brak{u(n) + u(n+1)} \nonumber \\ & -\frac{1}{2C}\frac{3\brak{y(n) + y(n+1)}}{2} \\
+	\implies y(n+1)\brak{1 + \frac{3}{4C}} &= y(n)\brak{1  - \frac{3}{4C}} \\ \nonumber &+ \frac{u(n) + u(n+1)}{2C}\label{eq:y_diff}
+       \end{align}
+       This will be the difference equation.
+	\item Find $H(z)$.\\
+	 For that we will find the z transform of $y(n)$ by applying z-transform on the difference equation,
+	  \begin{align}
+		  zY(z)\brak{1 + \frac{3}{4C}} &= Y(z)\brak{1 - \frac{3}{4C}} + \frac{1}{2C}\brak{\frac{1 + z}{1 - z^{-1}}}\\
+		 \implies Y(z) &= \frac{\frac{1}{2C}\brak{\frac{1 + z}{1 - z^{-1}}}}{\frac{3}{4C}\brak{z+1} + z-1}
+	  \end{align}
+	  Now assume that
+	    \begin{align}
+		    x(n) &= x(t)\vert_{t=n}
+	    \end{align}
+	    And here, 
+	    \begin{align}
+	    x(t) = v_2(t) = 2u(t)\brak(\because v_2(t) = 2V \forall t \geq 0)\\
+	    \implies x(n) = 2u(n)
+	    \end{align}
+	     So the z-transform of $x(n)$ will be,
+	      \begin{align}
+		X(z) &= \frac{2}{1 - z^{-1}}
+	      \end{align}
+	      with ROC being
+	       \begin{align}
+		       \abs{z} > 1
+		\end{align}
+	 Now our function of interest,transfer function in z-domain $H(z)$ will be
+	  \begin{align}
+		  H(z) &= \frac{Y(z)}{X(z)} \\
+		       &= \frac{\frac{1}{2C}\brak{1 +z}}{\frac{3}{2C}\brak{z + 1} + 2\brak{z - 1}} 
+	  \end{align}
+            Using that $C = 1 \mu F$,
+	     \begin{align}
+		     H(z) &= \frac{\brak{1 + z^{-1}}2.5 \times 10^5}{z^{-1}\brak{7.5 \times 10^5 - 1} + 7.5\times 10^5 + 1}
+	     \end{align}
+	     with ROC being
+	      \begin{align}
+		      \abs{z} > max\cbrak{1,\abs{\frac{7.5 \times 10^5 - 1}{7.5 \times 10^5 + 1}}}\\
+		\implies \abs{z} > 1
+	      \end{align}
+	\item How can you obtain $H(z)$ from $H(s)$?\\
+		\solution The Bilinear Transform is a first-order approximation of natural logarithm function that is an exact mapping between z-plane to the s-plane.\\
+		Here to get z-transform of a discrete-time sequence from its corresponding laplace transform, where each element is attached with corresponding unit impulse, we will approximate the below fact,
+		 \begin{align}
+			 s = \frac{\ln\brak{z}}{T}
+		 \end{align}
+		 where $T$ is the step size.\\
+		 If we expand the natural logarithm,
+		  \begin{align}
+			  s = \frac{2}{T}\sbrak{\brak{\frac{z-1}{z+1}} + \frac{1}{3}\brak{\frac{z-1}{z+1}}^3 + \cdots}\\
+			  s \approx \frac{2}{T}\frac{z -1}{z + 1} \\
+			  s \approx \frac{2}{T}\frac{1 - z^{-1}}{1 + z^{-1}}
+		  \end{align}
+	Here $T = 1$ .So,
+	 \begin{align}
+		 H(s)\vert_{s = 2\frac{1 - z^{-1}}{1 + z^{-1}}} &= \frac{5 \times 10^5}{2\frac{1 - z^{-1}}{1 + z^{-1}} + 1.5 \times 10^6} \\
+								&= \frac{2.5 \times 10^5\brak{1 + z^{-1}}}{\brak{1-z^{-1}} + 7.5 \times 10^5\brak{1 + z^{-1}}} \\
+								&= \frac{\brak{1 + z^{-1}}2.5 \times 10^5}{z^{-1}\brak{7.5 \times 10^5 - 1} + 7.5\times 10^5 + 1} \\
+								&= H(z)
+	 \end{align}
+        \item Find $y(n)$ from $H(z)$ and verify whether $y(n) = y(t)\vert_{t = n}$.\\
+	 \solution 
+	 \begin{align}
+		 &Y(z) = H(z)X(z) \\
+		      &= \frac{2.5 \times 10^5\brak{1 + z^{-1}}}{z^{-1}\brak{7.5 \times10^5 -1} + 7.5\times 10^5 + 1}\frac{2}{1 - z^{-1}} \\
+		      &= \frac{2}{3}\sbrak{\frac{1}{1-z^{-1}} - \frac{2}{3} \frac{1}{\brak{7.5 \times 10^5 - 1}z^{-1} + \brak{7.5 \times 10^5 +1}}}
+	 \end{align}
+	 Now if we apply inverse z-transform by taking ROC $\abs{z} > 1$,
+	  \begin{align}
+		  y(n) &= \frac{2}{3}u(n) - \frac{2}{3}\brak{-\frac{7.5 \times 10^5 -1}{7.5 \times 10^5 + 1}}^nu(n)
+	  \end{align}
+	  Here we used the following properties of z-transform,
+	   \begin{align}
+		   u(n) \ztrans \frac{1}{1-z^{-1}} , \abs{z} > 1\\
+		   a^{n}u(n) \ztrans \frac{1}{1 - az^{-1}} ,\abs{z} >\abs{a}
+	   \end{align}
+	   Here we are sampling the signal at high frequency means at small intervals of time let say for $n = 0.5 \times 10^{-5} , 1 \times 10^{-5} \cdots$,for that we can approximate $y(n)$ as,
+	    \begin{align}
+		    y(n) \approx \frac{2}{3}\brak{ 1 - \frac{1 - 7.5 \times 10^5n}{1 + 7.5\times 10^5n}}u(n)
+	    \end{align}
+            Now we will verify it from $y(t)$, for that consider
+	     \begin{align}
+		     Y(s) &= H(s)X(s) \\
+			  &=\frac{5 \times 10^5}{s + 1.5 \times 10^6}\frac{2}{s} \\
+			  &= \frac{2}{3}\brak{\frac{1}{s} - \frac{1}{s + 1.5 \times 10^6}}
+	     \end{align}
+	     Now we will apply inverse laplace transform with ROC being $\mathcal{R}\cbrak{s} > 0$ on b.s,
+	      \begin{align}
+	           y(t) &= \frac{2}{3}\brak{1 - e^{-1.5\times 10^6t}}u(t)
+              \end{align}
+               Now 
+	        \begin{align}
+			e^{-1.5 \times 10^6t} &= \frac{e^{-7.5 \times 10^5t}}{e^{7.5 \times 10^5t}} \\
+			&\approx \frac{1 - 7.5\times10^5t}{1 + 7.5\times10^5t} , \text{when}\, t << 10^{-6}
+		\end{align}
+	Using that,
+	     \begin{align}
+		     y(t) &= \frac{2}{3}\brak{1 - \frac{1 - 7.5\times10^5t}{1 + 7.5\times10^5t}}u(t)
+	     \end{align}
+	     And 
+	      \begin{align}
+		      y(t)\vert_{t = n} &= \frac{2}{3}\brak{1 - \frac{1 - 7.5\times10^5n}{1 + 7.5\times10^5n}}u(n)
+              \end{align}
+          As you can see both are turn to be the same.\\
+	  Download the following codes for the simulation and plot \ref{fig:y_n} 
+	   \begin{lstlisting}
+wget  https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/Circuits%20and%20Transforms/Codes/4.7.cir
+wget  https://github.com/Charanyash/EE3900-Digital_Signal_Processing/tree/master/Circuits%20and%20Transforms/Codes/4.7.py
+           \end{lstlisting}
+	   Then run the following command,
+	\begin{lstlisting}
+ngspice 4.7.cir
+python3 4.7.py
+        \end{lstlisting}
+        \begin{figure}[!ht]
+		\centering
+		\includegraphics[width = \columnwidth]{Figs/4.7.png}
+		\caption{Output of the filter vs time}
+		\label{fig:y_n}
+        \end{figure}
+      \item Derive the expression for $y(n)$ using difference equation.\\
+	      \solution Consider the difference equation $\eqref{eq:y_diff}$,
+	       \begin{align}
+		 y(n+1)\brak{1 + \frac{3}{4C}} &= y(n)\brak{1  - \frac{3}{4C}} \\ \nonumber &+ \frac{u(n) + u(n+1)}{2C} \\
+		\implies y(n+1) &= y(n)\brak{\frac{1 - \frac{3}{4C}}{1 + \frac{3}{4C}}} + \frac{u(n) + u(n+1)}{2C + \frac{3}{2}}
+	       \end{align}
+	       Since our discussion is in $n > 0$, we can write
+	        \begin{align}
+			u(n) + u(n+1) & =2
+		\end{align}
+                Now let say a,b are coefficients in difference equation,
+		 \begin{align}
+			 a &= \frac{1 - \frac{3}{4C}}{1 + \frac{3}{4C}} \\
+			   &= \frac{1 - 7.5\times 10^5}{1 + 7.5\times 10^5}\\
+			 b &= \frac{2}{2C + \frac{3}{2}} \\
+			   &= \frac{10^6}{1 + 7.5\times 10^5}
+		 \end{align}
+		So our difference equation looks like,
+		 \begin{align}
+			 y(n+1) &= ay(n) + b \\
+			 y(n)   &= ay(n-1) + b\\
+			        &= a\brak{ay(n-2) + b} + b \\
+				&= a^2y(n-2) +ab + b \\
+				& .. \nonumber \\
+				& = a^ny(0) + b\brak{1 + a + \cdots +a^{n-1}}
+		 \end{align}
+		We know that $y(0) = 0$,
+		 \begin{align}
+			y(n) &= b\frac{1 - a^n}{1 - a}
+		 \end{align}
+		 And substituting the values of $a$ and $b$,
+		  \begin{align}
+			  y(n) &= \frac{10^6}{1 + 7.5\times 10^5} \frac{1 - \brak{\frac{1 - 7.5 \times10^5}{1 + 7.5 \times 10^5}}^n}{1 - \brak{\frac{1 - 7.5\times 10^5}{1 + 7.5 \times 10^5}}} \\
+			       &= \frac{10^6}{1 + 7.5\times 10^5} \frac{1 - \brak{\frac{1 - 7.5 \times10^5}{1 + 7.5 \times 10^5}}^n}{\frac{1.5 \times10^6}{1 + 7.5\times 10^5}}\\
+			       &= \frac{2}{3}\brak{1 - \brak{\frac{1 - 7.5 \times10^5}{1 + 7.5 \times 10^5}}^n}
+		  \end{align}
+		  And for $n << 10^{-6}$,
+		    \begin{align}
+			    y(n) \approx \frac{2}{3}\brak{1 - \frac{1 - 7.5 \times 10^5n}{1 + 7.5 \times10^5n}}
+		    \end{align}
+		    In general,we can write
+		     \begin{align}
+			     y(n) &= \frac{2}{3}\brak{1 - \frac{1 - 7.5\times 10^5n}{1 + 7.5 \times 10^5n}}
+		     \end{align}
+		As you can see it is similar to what we got earlier.
 	\end{enumerate}
-
 \end{document}

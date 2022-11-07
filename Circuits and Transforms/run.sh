@@ -8,3 +8,5 @@ python3 2.8.py
 ngspice 3.5.cir
 python3 3.5.py
 
+ngspice 4.7.cir
+python3 4.7.py
